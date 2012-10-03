@@ -1,0 +1,17 @@
+.wrapper
+  .left_section
+    .description
+      Description...
+
+    .search_block
+      .results
+        Results:
+        = @size
+
+      .search_form
+        = form_tag("/search", :method => "get") do
+          = label_tag(:q, "Search for:")
+          = text_field_tag(:q)
+          = submit_tag("Search")
+  .map_section
+    = gmaps({"map_options" => {"auto_adjust" => false,"auto_zoom" => true, "center_latitude" => 48.471303, "center_longitude" => 22.882928 },"markers" => {"data" => @json }})
