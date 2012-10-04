@@ -1,21 +1,22 @@
-%h2 Sign up
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal"}) do |f|
   = devise_error_messages!
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, :'data-validation' => "validate_email"
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password, :'data-validation' => "validate_min_length length4 validate_confirmation"
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, :'data-validation' => "required"
-  %div= f.submit "Sign up"
--#%script
-  var validationSettings = {errorMessagePosition : 'element',borderColorOnError : ''};
-  $('#new_user').submit(function() {if ($(this).validate(false, validationSettings)) alert('Valid!'); return false; }).validateOnBlur(false, validationSettings);
+  %fieldset
+    %legend
+      Sign up
+    .control-group
+      = f.label :email, :class => "control-label", :for => "email"
+      .controls
+        = f.email_field :email, :class => "input-xlarge"
+    .control-group
+      = f.label :password, :class => "control-label", :for => "password"
+      .controls
+        = f.password_field :password, :class => "input-xlarge"
+    .control-group
+      = f.label :password_confirmation, :class => "control-label", :for => "password_confirmation"
+      .controls
+        = f.password_field :password_confirmation, :class => "input-xlarge"
+    .form-actions
+      %button.btn.btn-primary.btn-large{:type => "submit"} Submit
+      %button.btn Cancel
 
 = render "devise/shared/links"

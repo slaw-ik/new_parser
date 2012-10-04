@@ -15,16 +15,47 @@ $(document).ready(function () {
 
     $('#new_user').validate({
         rules:{
-            user_email:{
-                minlength:2,
+            'user[email]':{
+                email:true,
                 required:true
             },
-            user_password:{
+            'user[password]':{
                 required:true,
-                email:true
+                minlength:6,
             },
-            user_password_confirmation:{
-                minlength:2,
+            'user[password_confirmation]':{
+                minlength:6,
+                required:true,
+                equalTo:"#user_password"
+            }
+        },
+        highlight:function (label) {
+            $(label).closest('.control-group').addClass('error');
+        },
+        success:function (label) {
+            label
+                .text('OK!').addClass('valid')
+                .closest('.control-group').addClass('success');
+        }
+    });
+
+    $('#edit_user').validate({
+        rules:{
+            'user[email]':{
+                email:true,
+                required:true
+            },
+            'user[password]':{
+                required:true,
+                minlength:6
+            },
+            'user[password_confirmation]':{
+                minlength:6,
+                required:true,
+                equalTo:"#user_password"
+            },
+            'user[current_password]':{
+                minlength:6,
                 required:true
             }
         },

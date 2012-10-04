@@ -6,9 +6,9 @@
     -webkit-border-radius: 12px;
 }
 
-.error {
-    background: pink;
-}
+/*.error {*/
+    /*background: pink;*/
+/*}*/
 
 span.chars_left,
 span.jquery_form_error_message {
