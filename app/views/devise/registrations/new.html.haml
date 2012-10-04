@@ -4,14 +4,18 @@
   %div
     = f.label :email
     %br/
-    = f.email_field :email
+    = f.email_field :email, :'data-validation' => "validate_email"
   %div
     = f.label :password
     %br/
-    = f.password_field :password
+    = f.password_field :password, :'data-validation' => "validate_min_length length4 validate_confirmation"
   %div
     = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation
+    = f.password_field :password_confirmation, :'data-validation' => "required"
   %div= f.submit "Sign up"
+-#%script
+  var validationSettings = {errorMessagePosition : 'element',borderColorOnError : ''};
+  $('#new_user').submit(function() {if ($(this).validate(false, validationSettings)) alert('Valid!'); return false; }).validateOnBlur(false, validationSettings);
+
 = render "devise/shared/links"
