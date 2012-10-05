@@ -1,4 +1,7 @@
 GpsParser::Application.routes.draw do
+
+  resources :pointers
+
   devise_for :users
   devise_for :users do get '/users/sign_out' => 'devise/sessions#destroy' end
 
@@ -8,6 +11,7 @@ GpsParser::Application.routes.draw do
   match '/search' => 'home#search'
   match '/parse' => 'home#parse', :as => 'parse'
   match 'home/full_desc' => 'home#full_desc'
+  match 'show_pointer_on_map/:id' => 'home#show_pointer_on_map', :as => 'show_pointer_on_map'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

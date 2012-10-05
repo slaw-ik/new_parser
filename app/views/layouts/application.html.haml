@@ -9,7 +9,6 @@
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js'
-    -#= javascript_include_tag '//jzaefferer.github.com/jquery-validation/jquery.validate.js'
 
     = stylesheet_link_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css"
     = csrf_meta_tags
@@ -27,7 +26,8 @@
             %ul.nav
               %li= link_to "Map", map_path
               %li= link_to "List", list_path
-              %li= link_to "Parse", parse_path
+              -if user_signed_in? && current_user.is_admin?
+                %li= link_to "Parse", parse_path
             %ul.nav.pull-right
               - if user_signed_in?
                 %li.dropdown
@@ -47,10 +47,10 @@
     .container
       = render :partial => 'layouts/message'
       .row
-        .span9
+        .span12
           = yield
           = yield :scripts
-        .span3
+        -#.span3
           %h2 About Us
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

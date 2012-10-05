@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003144849) do
+ActiveRecord::Schema.define(:version => 20121005103117) do
 
   create_table "pointers", :force => true do |t|
     t.float    "latitude"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20121003144849) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "role"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

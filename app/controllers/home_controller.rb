@@ -49,6 +49,16 @@ class HomeController < ApplicationController
     end
   end
 
+  def show_pointer_on_map
+    unless params[:id].blank?
+      id = params[:id]
+
+      pointers = Pointer.find(id)
+      @json = pointers.to_gmaps4rails
+      render :action => :map
+    end
+  end
+
   def parse
     require 'nokogiri'
     require 'open-uri'

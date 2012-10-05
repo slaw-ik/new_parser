@@ -1,0 +1,6 @@
+.hero-unit
+  = @pointer.full_desc
+  .tools
+    %a{:href => "#{show_pointer_on_map_path(@pointer.id)}"}
+      %i{:class => "icon-map-marker"}
+        Show on the map
