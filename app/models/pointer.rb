@@ -18,6 +18,6 @@ class Pointer < ActiveRecord::Base
   end
 
   def gmaps4rails_infowindow
-    "<p style ='font-size: 12px; font-family = 'verdana'; '> #{self.description} <p><br><a data-remote='true' href='/home/full_desc?bla=#{self.id}'>Full description</a>"
+    "<p style ='font-size: 12px; font-family = 'verdana'; '> #{self.description} <p><br><a data-remote='true' href='/home/full_desc?bla=#{self.id}'>Full description (see under the map)</a>"
   end
 end

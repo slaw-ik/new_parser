@@ -11,6 +11,7 @@ class HomeController < ApplicationController
     pointers = Pointer.all
     @size = pointers.size
     @json = pointers.to_gmaps4rails
+    @zoom = params[:zoom] ? params[:zoom] : 9
   end
 
   def full_desc
@@ -23,7 +24,7 @@ class HomeController < ApplicationController
   end
 
   def all_list
-    @pointers = Pointer.limit(20)
+    @pointers = Pointer.limit(20).order("rec_date DESC, id ASC")
     @resc_array = @@resc_arr
     @resc_arr = []
   end
@@ -33,8 +34,8 @@ class HomeController < ApplicationController
     unless @add_pointers.blank?
       @pointers = @add_pointers
     else
-      @pointers = Pointer.limit(20).offset(@index)
-      @add_pointers = Pointer.limit(20).offset(@index + 20)
+      @pointers = Pointer.limit(20).order("rec_date DESC, id ASC").offset(@index)
+      @add_pointers = Pointer.limit(20).order("rec_date DESC, id ASC").offset(@index + 20)
     end
   end
 
@@ -54,8 +55,11 @@ class HomeController < ApplicationController
       id = params[:id]
 
       pointers = Pointer.find(id)
+      @desc = pointers.full_desc
       @json = pointers.to_gmaps4rails
-      render :action => :map
+      @size = 1
+
+      render :action => :map, :locals => {:zoom => 12, :center_lat => pointers.latitude, :center_long => pointers.longitude}
     end
   end
 
@@ -63,7 +67,8 @@ class HomeController < ApplicationController
     require 'nokogiri'
     require 'open-uri'
 
-    url = "#{::Rails.root}/todo.html"
+    #url = "#{::Rails.root}/todo.html"
+    url = "http://poi.uzhgorod.ua/todo.html"
     doc = Nokogiri::HTML(open(url))
 
     @arr = []
@@ -78,7 +83,7 @@ class HomeController < ApplicationController
 
     doc.css("p").each do |pp|
       if pp.text.mb_chars.include?("done")
-        pt = pp.text.gsub!("done", ">><<")
+        pt = pp.text.gsub!("done ", ">><<")
         pt.gsub!(/\n/, '')
         pt.scan(%r{<<.*?>>}).each_with_index do |element, index|
           coord = element.scan(%r{\s?\d{2}.\d{4,7}\s*,\s*\d{2}.\d{4,7}\s?})

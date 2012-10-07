@@ -1,21 +1,31 @@
 .wrapper
-  .left_section
-    .description
-      Description...
+  .search_block
+    .results
+      Number of points:
+      = @size
 
-    .search_block
-      .results
-        Results:
-        = @size
-
-      .search_form
-        = form_tag("/search", :method => "get") do
-          = label_tag(:q, "Search for:")
-          = text_field_tag(:q)
-          = submit_tag("Search")
-      .calender
-        = form_tag("/search", :method => "get") do
-          = text_field_tag :date, nil, :class => 'jquery-ui-date'
+    .search_form
+      = form_tag("/search", :method => "get", :class => "form-search") do
+        -#= label_tag(:q, "Search for:")
+        = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
+        = submit_tag("Search", :class => "btn")
+    -#.calender
+      = form_tag("/search", :method => "get") do
+        = text_field_tag :date, nil, :class => 'jquery-ui-date'
 
   .map_section
-    = gmaps({"map_options" => {"auto_adjust" => false,"auto_zoom" => true, "center_latitude" => 48.471303, "center_longitude" => 22.882928 },"markers" => {"data" => @json }})
+    - @zoom ||= zoom
+    - center_latitude = (defined? center_lat) ? center_lat : 48.471303
+    - center_longitude = (defined? center_long) ? center_long : 22.882928
+    = gmaps({"map_options" => {"auto_adjust" => false, "auto_zoom" => true, "zoom" => @zoom.to_i, "center_latitude" => center_latitude, "center_longitude" => center_longitude },"markers" => {"data" => @json }})
+
+
+  .well{:style => "margin-top:20px;"}
+    .description
+      = @desc
+      -#Full description...
+
+  #vk_like
+  %script{:type => "text/javascript"}
+    VK.Widgets.Like("vk_like", {type: "full"});
+
