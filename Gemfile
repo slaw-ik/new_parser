@@ -37,6 +37,10 @@ group :development do
   gem 'ruby_parser'
 end
 
+group :production do
+  gem 'activerecord-postgresql-adapter'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
