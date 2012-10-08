@@ -96,9 +96,9 @@ class HomeController < ApplicationController
             latitude = lat_lon.first
             longitude = lat_lon.last
             short_desc = element.scan(%r{^.*?\.}).to_s
-            #puts element
-            #puts "====="
-            #puts short_desc
+            puts element
+            puts "====="
+            puts short_desc
             short_desc.gsub!('"', "'")
             begin
               Pointer.create(:latitude => latitude.to_f.round(4), :longitude => longitude.to_f.round(4), :description => short_desc, :full_desc => element, :rec_date => record_date)
