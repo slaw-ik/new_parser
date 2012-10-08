@@ -15,7 +15,7 @@ GpsParser::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -71,10 +71,11 @@ GpsParser::Application.configure do
   config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
-      :domain               => 'baci.lindsaar.net',
+      :domain               => 'poi.herokuapp.com',
       :user_name            => 'slawikdft@gmail.com',
       :password             => 'Myrkin1985',
       :authentication       => 'plain',
-      :enable_starttls_auto => true  }
+      #:enable_starttls_auto => true
+  }
 
 end
