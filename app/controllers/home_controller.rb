@@ -43,7 +43,8 @@ class HomeController < ApplicationController
     unless params[:q].blank?
       q = params[:q]
 
-      pointers = Pointer.find_by_sql("SELECT * FROM pointers WHERE full_desc like '%#{q}%'")
+      pointers = Pointer.where{full_desc =~ "%#{q}%"}
+
       @size = pointers.size
       @json = pointers.to_gmaps4rails
       render :action => :map
@@ -102,14 +103,14 @@ class HomeController < ApplicationController
             short_desc.gsub!('"', "'")
             begin
               Pointer.create(:latitude => latitude.to_f.round(4), :longitude => longitude.to_f.round(4), :description => short_desc, :full_desc => element, :rec_date => record_date)
-              puts "========="
-              puts "OK"
-              puts "========="
+              #puts "========="
+              #puts "OK"
+              #puts "========="
             rescue
               @resc_arr << latitude + ", " + longitude
-              puts "========="
-              puts "FAIL"
-              puts "========="
+              #puts "========="
+              #puts "FAIL"
+              #puts "========="
             end
           end
           #if index==2

@@ -11,9 +11,16 @@ class Pointer < ActiveRecord::Base
     #errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{latitude.round(4)} AND longitude LIKE #{longitude.round(4)}").blank?
     a = latitude.round(4)
     b = longitude.round(4)
-    errors.add(:latitude, "double") unless Pointer.where{(latitude =~ a) & (longitude =~ b)}.blank?
+    db_type = ActiveRecord::Base.connection.adapter_name
+
+    if db_type.index('PostgreSQL') == 0
+      errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude = #{a} AND longitude = #{b}").blank?
+    elsif db_type.index('Mysql') == 0
+      errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{a} AND longitude LIKE #{b}").blank?
+    end
 
   end
+
   #====================================================
 
   def gmaps4rails_address
