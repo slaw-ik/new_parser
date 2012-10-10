@@ -8,7 +8,11 @@ class Pointer < ActiveRecord::Base
 
   #================== Validations =====================
   def double_coordinates
-    errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{latitude.round(4)} AND longitude LIKE #{longitude.round(4)}").blank?
+    #errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{latitude.round(4)} AND longitude LIKE #{longitude.round(4)}").blank?
+    a = latitude.round(4)
+    b = longitude.round(4)
+    errors.add(:latitude, "double") unless Pointer.where{(latitude =~ a) & (longitude =~ b)}.blank?
+
   end
   #====================================================
 
