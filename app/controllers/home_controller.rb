@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
   def full_desc
     id = params[:bla]
-    @desc = Pointer.find(id).full_desc
+    @desc = (Pointer.find(id).full_desc).delete("\r")
 
     respond_to do |format|
       format.js { render :layout => false }
