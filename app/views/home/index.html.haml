@@ -1,1 +1,37 @@
-%h1 Places of Transcarpation
+%h1 Places of Transcarpathion
+
+.list-widget
+  .list-head
+    %h3
+      10 Last Places
+  %ul
+    - @last_points.each do |point|
+      %li
+        %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
+        %div
+          %a{:href => "#"}
+            = point.description
+
+    %li
+      %a.list-view{:href => "/honzasladek/responsive-web-design"} View all 58 clips 
+
+
+.list-widget
+  .list-head
+    %h3
+      %a{:href => "/honzasladek/responsive-web-design"} Responsive Web Design
+  %ul
+    %li
+      %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
+      %div
+        %a{:href => "/honzasladek/responsive-web-design"} LukeW | Data Monday: Almost One Billion...
+    %li
+      %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=analytics.blogspot.cz');"}
+      %div
+        %a{:href => "/honzasladek/responsive-web-design"} Mobile Websites vs Responsive Design: What’s the right solution for your business? - Analytics Blog
+    %li
+      %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=css-tricks.com');"}
+      %div
+        %a{:href => "/honzasladek/responsive-web-design"} Opt-Out Responsive Design? | CSS-Tricks
+    %li
+      %a.list-view{:href => "/honzasladek/responsive-web-design"} View all 58 clips 

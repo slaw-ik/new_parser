@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   before_filter proc { @@resc_arr =[] }, :except => [:all_list]
 
   def index
+    @last_points = Pointer.limit(10).order("rec_date DESC, id ASC")
 
   end
 
