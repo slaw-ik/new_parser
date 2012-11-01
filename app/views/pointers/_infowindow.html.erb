@@ -1,0 +1,25 @@
+<p style="font-size: 12px; font-family:'verdana'">
+  <%= point.description %>
+</p>
+<br>
+<a data-remote='true' href="home/full_desc?bla=<%= point.id %>">
+  Full description (see under the map)
+</a>
+<br>
+
+<%- unless current_user.blank? %>
+    <a id='v_link_<%= point.id %>' data-remote='true' href='/create_visit/<%= point.id %>'>
+  <i class='icon-map-marker'>
+    I want to visit this place
+  </i>
+</a>
+    <br>
+    <a id='f_link_<%= point.id %>' data-remote='true' href='/set_visited/<%= point.id %>'>
+      <i class='icon-flag'>
+        Mark as visited place
+      </i>
+    </a>
+    <br>
+    <br>
+    <br>
+<%- end %>

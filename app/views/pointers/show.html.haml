@@ -2,5 +2,13 @@
   = @pointer.full_desc
   .tools
     %a{:href => "#{show_pointer_on_map_path(@pointer.id)}"}
-      %i{:class => "icon-map-marker"}
+      %i.icon-globe
         Show on the map
+  - unless current_user.blank?
+    %a{:id => "v_link_#{@pointer.id}", :'data-remote' => 'true', :href => "/create_visit/#{@pointer.id}"}
+      %i.icon-map-marker
+        I want to visit this place
+    %br
+      %a{:id=>"f_link_#{@pointer.id}", :'data-remote' => 'true', :href => "/set_visited/#{@pointer.id}"}
+        %i.icon-flag
+          Mark as visited place

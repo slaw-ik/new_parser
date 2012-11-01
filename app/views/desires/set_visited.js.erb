@@ -1,0 +1,6 @@
+$('body > .container').prepend('' +
+        '<div class="alert alert-<%= @success %> fade in" style="">' +
+        '<a class="close" data-dismiss="alert">×</a>' +
+        '<div id="flash_notice"><%= @message %></div>' +
+        '</div>');
+$('.alert').delay(1700).fadeOut(400);

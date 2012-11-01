@@ -9,7 +9,22 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
+    has_many :desires
+
   def is_admin?
     role == 1
   end
+
+
+    class << self
+      def current_user=(user)
+        Thread.current[:current_user] = user
+      end
+
+      def current_user
+        Thread.current[:current_user]
+      end
+    end
+
+
 end
