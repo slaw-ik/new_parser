@@ -15,7 +15,11 @@
 //= require twitter/bootstrap
 //= require_tree
 //= jquery.validate
+//= bootstrap
+
 //= script
+
+
 
 
 

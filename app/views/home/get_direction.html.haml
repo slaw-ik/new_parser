@@ -1,0 +1,5 @@
+-#= Gmaps4rails.destination({"from" => "48.5897,23.1138", "to" => "48.5374,23.6524"},{"language"  => "ru","mode"      => "DRIVING","avoid"     => ["tolls", "highways"], "language"  => "ru" }, "pretty" )
+
+-#= gmaps({"direction"   => { "data" => { "from" => "#{@ride.latitude},#{@ride.longitude}", "to" => "#{@ride.spot.latitude},#{@ride.spot.longitude}" } }})
+= gmaps({"direction"   => { "data" => { "from" => "48.5897,23.1138", "to" => "48.5374,23.6524" } }})
+-#= gmaps({ :direction => {:data => { :from => @map.origin, :to => @map.destination}}})

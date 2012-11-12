@@ -66,6 +66,12 @@
       = render :partial => 'layouts/message'
       .row
         .span12
+          -##overlay
+          -##modal
+            #content
+              -#No JavaScript Yet!
+              %a{:href => '#', :id => 'close'}
+                close
           = yield
           = yield :scripts
         -#.span3

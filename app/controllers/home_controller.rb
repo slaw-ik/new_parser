@@ -101,6 +101,51 @@ class HomeController < ApplicationController
     end
   end
 
+  def get_direction
+
+  end
+
+  def get_direction_info
+    from = params[:from]
+    to = params[:to]
+
+    @result = Gmaps4rails.destination({"from" => from,
+                                       "to" => to},
+                                      {"language"  => "ru",
+                                       "mode"      => "DRIVING",
+                                       "avoid"     => ["tolls", "highways"],
+                                       "language"  => "ru" },
+                                      "pretty" )
+
+    #=========================Result Sample=====================================
+    #[{"duration"=>{"text"=>"19 mins",
+    #               "value"=>1127.0},
+    #  "distance"=>{"text"=>"20.9 km",
+    #               "value"=>20883.0},
+    #  "steps"=>[{"distance"=>{"text"=>"13.7 km",
+    #                          "value"=>13666},
+    #             "duration"=>{"text"=>"12 mins",
+    #                          "value"=>727},
+    #             "end_location"=>{"lat"=>48.71946000000001, "lng"=>22.59635},
+    #             "html_instructions"=>"Head southwest on T0712",
+    #             "start_location"=>{"lat"=>48.67308000000001, "lng"=>22.75927},
+    #             "travel_mode"=>"DRIVING"},
+    #            {"distance"=>{"text"=>"7.2 km",
+    #                          "value"=>7217},
+    #             "duration"=>{"text"=>"7 mins",
+    #                          "value"=>400},
+    #             "end_location"=>{"lat"=>48.74445, "lng"=>22.67609},
+    #             "html_instructions"=>"Turn right onto T0723",
+    #             "start_location"=>{"lat"=>48.71946000000001, "lng"=>22.59635},
+    #             "travel_mode"=>"DRIVING"}],
+    #  "polylines"=>"[{\"coded_array\":\"wmahHmd|iCz@|DhB`JXxBRjDr@vNJfEiA`NiAlPyBx\\\\q@rKeG|_AkAvRWbC_@xBcDpMqAjE{BhHmBvG{@xDuAzKi@~EwCxU{ApM}@lHsCbVsC`VsCx[q@jIm@zGq@dHoApKWhBaCrLyApGsCvMmBnJk@vB_BlEoBvEu@bByBdFcBjFyCzJgAjD_HjTgHbUkCxIuCjJwE~O_G`TW~AwA|Us@vLo@hKa@pHU`EOlDY|C{AbMyCbT{@nG{@~Ha@~Dk@|FiAjLyAhPg@lCsBvJsD`PkCrLwFvV_BfHsBlJoCrMoEjRgCtIsBxGwAxEu@dAk@Zo@FiDNwFR{@LeAf@wEpDuMnKkBbByBvA{E|CoDvBg@Z\"},{\"coded_array\":\"sojhHej|hCQcA_@oAAuAFoGIkEg@kAeA]e@w@HsFrEkRxCeOfCqOn@iQWqImGyi@uFuTwGqSeEqM_JmSc_@_r@w\\\\so@{LkW{ByE_Cu@kFO_EwDiByEqAoFgAaFuAaH}CiQoAaBqBg@iBeBm@}CYyEiBuAeBwDTqJFcMx@_JhBsGF}@\"}]"}]
+    #=============================================================================
+
+    render :layout => false
+  end
+
+
+
   def parse
     require 'nokogiri'
     require 'open-uri'
@@ -171,7 +216,7 @@ class HomeController < ApplicationController
       #marker.title "#{city.name}"
       #marker.json({ :population => city.population})
       #options[:status] = point.status.blank? ? options[:status] : nil
-      status_dir = options[:status].blank? ? point.status : (point.status.blank? ? options[:status] : point.status)
+      status_dir = options[:status].blank? ? point.try(:status) : (point.status.blank? ? options[:status] : point.status)
       width = options[:width].blank? ? 32 : options[:width]
       height = options[:height].blank? ? 37 : options[:height]
       marker.picture({:picture => "/assets/markers/#{status_dir}/pin-export.png",
