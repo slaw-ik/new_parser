@@ -2,6 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+@hide_panel = () ->
+  unless $(".tabbable").position().left < 0
+    $(".tabbable").animate({"left": "-=310px"}, "slow");
+
+@show_panel = () ->
+  unless $(".tabbable").position().left > 0
+    $(".tabbable").animate({"left": "+=310px"}, "slow");
 
 @build_from = (coord) ->
   $('#coord_from').val(coord)
@@ -22,4 +29,6 @@ build = (from = null, to = null) ->
 
 $ ->
   $(".jquery-ui-date").datepicker()
+  $(".tabbable li").click(show_panel)
+
 

@@ -1,4 +1,17 @@
 .wrapper
+  .tabbable.tabs-right
+    %ul.nav.nav-tabs
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#tab1"} Section 1
+      %li
+        %a{"data-toggle" => "tab", :href => "#tab2"} Section 2
+    .hide-arrow{:onclick => "hide_panel();"}
+      %i.icon-chevron-left
+    .tab-content
+      #tab1.tab-pane.active
+        %p I'm in Section 1.
+      #tab2.tab-pane
+        %p Howdy, I'm in Section 2.
   %input{:id => "coord_from", :value => ""}
   %input{:id => "coord_to", :value => ""}
   .search_block

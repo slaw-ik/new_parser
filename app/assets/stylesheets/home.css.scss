@@ -86,3 +86,36 @@
   overflow: hidden;
 }
 
+.tabbable{
+  background-color: #ffffff;
+  position: fixed;
+  top: 75px;
+  left: -300px;
+  border: 1px solid #DDD;
+  padding: 5px;
+  border-radius: 4px;
+  width: 300px;
+  z-index: 999;
+  .tab-content{
+    margin-left: 20px;
+  }
+  .hide-arrow{
+    width: 10px;
+    vertical-align: middle;
+    float: left;
+    height: 500px;
+    padding-top: 245px;
+    background-color: lightSkyBlue;
+    border-radius: 5px 0;
+    padding-left: 2px;
+    cursor: pointer;
+  }
+  ul{
+    margin-right: -105px;
+    margin-bottom: 0;
+    li{
+      background-color: lightGoldenrodYellow;
+      border-radius: 5px;
+    }
+  }
+}
