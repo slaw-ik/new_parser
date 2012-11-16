@@ -30,5 +30,13 @@ build = (from = null, to = null) ->
 $ ->
   $(".jquery-ui-date").datepicker()
   $(".tabbable li").click(show_panel)
+#  $('.map_section').click ->
+#    $('img[style*="left: -18px; top: -44px"]:first').trigger('click')
+
+#  $('a').click(function(e){
+#  e.stopImmediatePropagation();
+#  alert('hi');
+#});
+
 
 

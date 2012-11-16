@@ -2,14 +2,17 @@
   .tabbable.tabs-right
     %ul.nav.nav-tabs
       %li.active
-        %a{"data-toggle" => "tab", :href => "#tab1"} Section 1
+        %a{"data-toggle" => "tab", :href => "#tab1"} Description
       %li
         %a{"data-toggle" => "tab", :href => "#tab2"} Section 2
     .hide-arrow{:onclick => "hide_panel();"}
       %i.icon-chevron-left
     .tab-content
       #tab1.tab-pane.active
-        %p I'm in Section 1.
+        %h5
+          Full description
+        .well.description
+          = @desc
       #tab2.tab-pane
         %p Howdy, I'm in Section 2.
   %input{:id => "coord_from", :value => ""}
@@ -39,7 +42,7 @@
     = gmaps({"map_options" => {"auto_adjust" => false, "auto_zoom" => true, "zoom" => @zoom.to_i, "center_latitude" => center_latitude, "center_longitude" => center_longitude },"markers" => {"data" => @json }})
 
 
-  .well{:style => "margin-top:20px;"}
+  -#.well{:style => "margin-top:20px;"}
     .description
       = @desc
       -#Full description...
