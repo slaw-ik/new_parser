@@ -17,6 +17,7 @@
         %p Howdy, I'm in Section 2.
   %input{:id => "coord_from", :value => ""}
   %input{:id => "coord_to", :value => ""}
+  = link_to 'Other Map', '/othermap', :remote=>true
   .search_block
     .results
       Number of points:

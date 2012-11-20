@@ -9,7 +9,7 @@ development:
   encoding: utf8
   pool: 5
   username: root
-  password: '1234'
+  password:
   host: localhost
 
 
@@ -22,7 +22,7 @@ test:
   encoding: utf8
   pool: 5
   username: root
-  password: '1234'
+  password:
   host: localhost
 
 
@@ -33,5 +33,5 @@ production:
   encoding: utf8
   pool: 5
   username: root
-  password: '1234'
+  password:
   host: localhost

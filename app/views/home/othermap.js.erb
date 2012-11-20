@@ -1,0 +1,36 @@
+//$('.map_section').html(
+  '<%#=
+    #escape_javascript(
+    #  gmaps({"map_options" => {"auto_adjust" => false, "auto_zoom" => true, "zoom" => 9, "center_latitude" => 48.471303, "center_longitude" => 22.882928 },"markers" => {"data" => @json }})
+    #)
+   %>'
+//  )
+
+//$('.map_section').html('<%#= escape_javascript( gmaps({:last_map => false}) ) %>');
+//
+//Gmaps.map = new Gmaps4RailsGoogle();
+//Gmaps.load_map = function() {
+//    Gmaps.map.map_options.maxZoom = 3;
+//    Gmaps.map.initialize();
+//  Gmaps.map.serviceObject.replaceMarkers(<%#= @json %>)
+//};
+
+
+
+//var marker, _i, _len, _ref, _ref1,
+//  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+//alert("<%#= @json %>");
+//$('html title').text('test')
+
+
+//var _ref = Gmaps.map.markers;
+//for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+//  marker = _ref[_i];
+//    Gmaps.map.clearMarker(marker);
+//}
+
+var my_json = <%= raw @json %>;
+
+//Gmaps.map.addMarkers(my_json);
+Gmaps.map.replaceMarkers(my_json)

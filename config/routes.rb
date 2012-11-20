@@ -9,6 +9,7 @@ GpsParser::Application.routes.draw do
   match 'list' => 'home#all_list', :as => 'list'
   match '/dynamic_content' => 'home#dynamic_content'
   match '/search' => 'home#search'
+  match '/othermap' => 'home#othermap'
   match '/parse' => 'home#parse', :as => 'parse'
   match 'home/full_desc' => 'home#full_desc'
   match '/my_places' => 'home#my_places'

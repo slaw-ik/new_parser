@@ -39,4 +39,12 @@ $ ->
 #});
 
 
-
+$ ->
+  $(".form-search").submit ->
+    valuesToSubmit = $(this).serialize()
+    $.ajax(
+      url: $(this).attr("action")
+      data: valuesToSubmit
+      dataType: "script"
+    )
+    false

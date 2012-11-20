@@ -23,6 +23,16 @@ class HomeController < ApplicationController
     @zoom = params[:zoom] ? params[:zoom] : 9
   end
 
+  def othermap
+    pointers = Pointer.first
+    #@size = pointers.size
+    @json = build_map(pointers, {status: "default"})
+
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
   def my_places
     user_id = current_user.blank? ? 0 : current_user.id
     status = params[:status]
@@ -83,11 +93,14 @@ class HomeController < ApplicationController
                                     where pointers.full_desc LIKE '%#{q}%'")
 
 
-
       @size = pointers.size
       @json = build_map(pointers, {status: "default"})
 
-      render :action => :map
+      respond_to do |format|
+        format.js { render :layout => false }
+      end
+
+      #render :action => :map
     end
   end
 
@@ -122,11 +135,11 @@ class HomeController < ApplicationController
 
     @result = Gmaps4rails.destination({"from" => from,
                                        "to" => to},
-                                      {"language"  => "ru",
-                                       "mode"      => "DRIVING",
-                                       "avoid"     => ["tolls", "highways"],
-                                       "language"  => "ru" },
-                                      "pretty" )
+                                      {"language" => "ru",
+                                       "mode" => "DRIVING",
+                                       "avoid" => ["tolls", "highways"],
+                                       "language" => "ru"},
+                                      "pretty")
 
     #=========================Result Sample=====================================
     #[{"duration"=>{"text"=>"19 mins",
@@ -154,7 +167,6 @@ class HomeController < ApplicationController
 
     render :layout => false
   end
-
 
 
   def parse
@@ -227,7 +239,8 @@ class HomeController < ApplicationController
       #marker.title "#{city.name}"
       #marker.json({ :population => city.population})
       #options[:status] = point.status.blank? ? options[:status] : nil
-      status_dir = options[:status].blank? ? point.try(:status) : (point.try(:status).blank? ? options[:status] : point.status)
+      #status_dir = options[:status].blank? ? point.try(:status) : (point.try(:status).blank? ? options[:status] : point.status)
+      status_dir = "default"
       width = options[:width].blank? ? 32 : options[:width]
       height = options[:height].blank? ? 37 : options[:height]
       marker.picture({:picture => "/assets/markers/#{status_dir}/pin-export.png",
