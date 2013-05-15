@@ -19,12 +19,13 @@
 }
 
 .map_section {
-  clear: both;
+  //clear: both;
 }
 
 .gmaps4rails_map {
-  width: 100%;
-  height: 700px;
+  .gmnoprint[controlheight="356"] {
+    left: 50px;
+  }
 }
 
 .map_container {
@@ -86,36 +87,46 @@
   overflow: hidden;
 }
 
-.tabbable{
+.tabbable {
   background-color: #ffffff;
   position: fixed;
   top: 75px;
-  left: -300px;
+  //left: -300px;
+  left: 100%;
   border: 1px solid #DDD;
   padding: 5px;
   border-radius: 4px;
   width: 300px;
   z-index: 999;
-  .tab-content{
+  &.tabs-left > .nav-tabs {
+      margin-right: -100px;
+  }
+  .nav-tabs {
+    //margin-top: 610px;
+  }
+  .tab-content {
     margin-left: 20px;
   }
-  .hide-arrow{
+  .hide-arrow {
     width: 10px;
     vertical-align: middle;
     float: left;
     height: 350px;
     padding-top: 340px;
     background-color: #d3d3d3;
-    border-radius: 5px 0;
+    border-radius: 5px 0 0 5px;
     padding-left: 2px;
     cursor: pointer;
   }
-  ul{
-    margin-right: -105px;
+  ul {
+    //margin-right: -105px;
     margin-bottom: 0;
-    li{
+    left: -105px;
+    position: relative;
+    li {
       background-color: lightGoldenrodYellow;
       border-radius: 5px;
     }
   }
 }
+

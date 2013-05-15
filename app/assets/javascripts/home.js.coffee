@@ -2,13 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+#@hide_panel = () ->
+#  unless $(".tabbable").position().left < 0
+#    $(".tabbable").animate({"left": "-=310px"}, "slow")
+
 @hide_panel = () ->
-  unless $(".tabbable").position().left < 0
-    $(".tabbable").animate({"left": "-=310px"}, "slow");
+  if $(".tabbable").hasClass('showed')
+    $(".tabbable").animate({"left": "+=315px"}, "slow").removeClass("showed")
+
+#@show_panel = () ->
+#  unless $(".tabbable").position().left > 0
+#    $(".tabbable").animate({"left": "+=310px"}, "slow")
 
 @show_panel = () ->
-  unless $(".tabbable").position().left > 0
-    $(".tabbable").animate({"left": "+=310px"}, "slow");
+  unless $(".tabbable").hasClass('showed')
+    $(".tabbable").animate({"left": "-=315px"}, "slow").addClass("showed")
 
 @build_from = (coord) ->
   $('#coord_from').val(coord)
@@ -28,6 +36,7 @@ build = (from = null, to = null) ->
 
 
 $ ->
+#  $('.gmnoprint[controlheight="356"]').css("left", "50px");
   $(".jquery-ui-date").datepicker()
   $(".tabbable li").click(show_panel)
 #  $('.map_section').click ->
@@ -48,3 +57,19 @@ $ ->
       dataType: "script"
     )
     false
+
+#@movie_contrils = () ->
+#  if $('.gmnoprint[controlheight="356"]').children().length == 4
+#    $('.gmnoprint[controlheight="356"]').css("left", "10px").css("top","110px")
+#  else
+#    setTimeout (->
+#      @movie_contrils()
+#      $('title').text($('title').text()+"+")
+#    ), 100
+#
+#
+#$(window).load ->
+#  @movie_contrils()
+#  setTimeout (->
+
+#  ), 5000

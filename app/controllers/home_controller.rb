@@ -62,7 +62,8 @@ class HomeController < ApplicationController
   end
 
   def all_list
-    @pointers = Pointer.limit(20).order("rec_date DESC, id ASC")
+    @all_pointers = Pointer.order("rec_date DESC, id ASC")
+    @pointers = @all_pointers.limit(20)
     @resc_array = @@resc_arr
     @resc_arr = []
   end
@@ -239,8 +240,8 @@ class HomeController < ApplicationController
       #marker.title "#{city.name}"
       #marker.json({ :population => city.population})
       #options[:status] = point.status.blank? ? options[:status] : nil
-      #status_dir = options[:status].blank? ? point.try(:status) : (point.try(:status).blank? ? options[:status] : point.status)
-      status_dir = "default"
+      status_dir = options[:status].blank? ? point.try(:status) : (point.try(:status).blank? ? options[:status] : point.status)
+      #status_dir = "default"
       width = options[:width].blank? ? 32 : options[:width]
       height = options[:height].blank? ? 37 : options[:height]
       marker.picture({:picture => "/assets/markers/#{status_dir}/pin-export.png",

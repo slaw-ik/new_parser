@@ -41,6 +41,13 @@
 %input{:id=>"add_pointers", :type => "hidden", :value => "1"}
 %input{:id=>"hid_inp", :type => "hidden", :value => "0"}
 
-.scroll_container
-  = render :partial => 'pointers'
+.row
+  .span12
+    %p
+      Number of points:
+      = @all_pointers.size
+.row
+  .span12
+    .scroll_container
+      = render :partial => 'pointers'
 

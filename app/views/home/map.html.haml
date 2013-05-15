@@ -1,12 +1,12 @@
 .wrapper
-  .tabbable.tabs-right
+  .tabbable.tabs-left
     %ul.nav.nav-tabs
       %li.active
         %a{"data-toggle" => "tab", :href => "#tab1"} Description
       %li
         %a{"data-toggle" => "tab", :href => "#tab2"} Section 2
     .hide-arrow{:onclick => "hide_panel();"}
-      %i.icon-chevron-left
+      %i.icon-chevron-right
     .tab-content
       #tab1.tab-pane.active
         %h5
@@ -48,7 +48,7 @@
       = @desc
       -#Full description...
 
-  #vk_like
-  %script{:type => "text/javascript"}
+  -##vk_like
+  -#%script{:type => "text/javascript"}
     VK.Widgets.Like("vk_like", {type: "full"});
 

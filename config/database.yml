@@ -9,7 +9,7 @@ development:
   encoding: utf8
   pool: 5
   username: root
-  password:
+  password: '1234'
   host: localhost
 
 

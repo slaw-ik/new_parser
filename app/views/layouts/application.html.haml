@@ -26,14 +26,19 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{:href => root_url} Places of Transcarpathion
+          %a.brand{:href => root_url}
+            Places of Transcarpathion
+            -#= controller.action_name
+            -#= controller.controller_name
           .nav-collapse
             %ul.nav
-              %li= link_to "Map", map_path
-              %li= link_to "List", list_path
+              %li{:class => controller.action_name.in?("map", "show_pointer_on_map") ? "active" : "" }
+                = link_to "Map", map_path
+              %li{:class => controller.action_name == "all_list" ? "active" : ""}
+                = link_to "List", list_path
               - if user_signed_in?
                 %li.dropdown
-                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => "active"}
                     My places
                     %b.caret
                   %ul.dropdown-menu
