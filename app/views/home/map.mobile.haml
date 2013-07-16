@@ -1,0 +1,57 @@
+-#=======header===============
+- content_for :header do
+  %div{"data-role" => "header", "data-theme" => "a"}
+    %a.ui-btn-left{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-role" => "button", :href => "/", "data-transition" => "slide", "data-direction" => "reverse"}
+      Home
+    %h3
+      Map
+
+-#=======content===============
+
+
+
+
+- if defined? zoom
+  - @zoom = zoom
+  - else
+  - @zoom = 9
+
+- center_latitude = (defined? center_lat) ? center_lat : 48.471303
+- center_longitude = (defined? center_long) ? center_long : 22.882928
+
+#map_canvas{:style => "position: absolute; left:0; height: -webkit-calc(100% - 45px); height: -moz-calc(100% - 45px); width:100%; top:45px; "}
+
+
+:javascript
+
+  $("div:jqmData(role='page'):last").on("pageshow", function() {
+          $('#map_canvas').gmap('refresh');
+  });
+
+
+  $("div:jqmData(role='page'):last").on("pageinit", function() {
+       //jQuery('#map_canvas').gmap('addMarker', {'position': '57.7973333,12.0502107', 'bounds': true}).click(function() {
+       //      jQuery('#map_canvas').gmap('openInfoWindow', {'content': 'Hello World!'}, this);
+       //    });
+
+
+
+
+        $('#map_canvas').gmap({ 'disableDefaultUI':false, 'callback': function() {
+            var self = this;
+            self.getCurrentPosition(function(position, status) {
+                if ( status === 'OK' ) {
+                    self.set('clientPosition', new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                    self.addMarker({'position': self.get('clientPosition'), 'bounds': true, 'icon':'http://google-maps-icons.googlecode.com/files/friends.png'});
+                    self.addShape('Circle', { 'strokeWeight': 0, 'fillColor': "#008595", 'fillOpacity': 0.25, 'center': self.get('clientPosition'), 'radius': 5, clickable: false });
+                }
+            });
+        }});
+
+
+
+
+
+  });
+
+

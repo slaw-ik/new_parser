@@ -18,9 +18,13 @@ class HomeController < ApplicationController
                                     ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}")
 
     @size = pointers.size
-    @json = build_map(pointers, {status: "default"})
-
     @zoom = params[:zoom] ? params[:zoom] : 9
+
+    respond_to do |format|
+      format.html { @json = build_map(pointers, {status: "default"}) }
+      format.mobile
+    end
+
   end
 
   def othermap

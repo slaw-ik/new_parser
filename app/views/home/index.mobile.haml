@@ -1,0 +1,25 @@
+-#=======header===============
+- content_for :header do
+  %div{"data-role" => "header", "data-theme" => "a"}
+    %h3
+      Places of Transcarpathian
+
+-#=======content===============
+%div{"data-role" => "collapsible-set"}
+  %div{"data-role" => "collapsible"}
+    %h3
+      10 Last added Places
+    %ul{"data-divider-theme" => "b", "data-inset" => "true", "data-role" => "listview", "data-mini" => "true"}
+      - @last_points.each do |point|
+        %li{"data-theme" => "c"}
+          %a{"data-transition" => "slide", :href => "#"}
+            = point.description
+
+%a{"data-icon" => "star", "data-iconpos" => "left", "data-role" => "button", :href => "/map", "data-transition" => "slide", "data-ajax" => "false"}
+  Map
+%a{"data-icon" => "bars", "data-iconpos" => "left", "data-role" => "button", :href => "#page1"}
+  List of Places
+%a{"data-icon" => "search", "data-iconpos" => "left", "data-role" => "button", :href => "#page1"}
+  Search
+%a{"data-icon" => "check", "data-iconpos" => "left", "data-role" => "button", :href => "#page1"}
+  Log In
