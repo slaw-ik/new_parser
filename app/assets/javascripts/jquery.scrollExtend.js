@@ -1,4 +1,5 @@
-/*
+/*                 //console.log("==============================================");
+
  * jQuery scrollExtend plugin v1.0.1
  *
  * Copyright (c) 2009 Jim Keller

@@ -1,4 +1,6 @@
-$(".scroll_container").append("<%= escape_javascript render(:partial => "pointers", :object => @pointers)%>")
+//listview('refresh')
+
+$("#scroll_container").append("<%= escape_javascript render(:partial => "pointers.mobile", :object => @pointers)%>").collapsibleset( "refresh" )
 <%- if @add_pointers.nil? || @add_pointers.length == 0%>
 $("#add_pointers").attr("value", "0")
 <%- end %>

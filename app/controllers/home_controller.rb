@@ -80,6 +80,7 @@ class HomeController < ApplicationController
       @pointers = Pointer.limit(20).order("rec_date DESC, id ASC").offset(@index)
       @add_pointers = Pointer.limit(20).order("rec_date DESC, id ASC").offset(@index + 20)
     end
+    render 'dynamic_content.js'
   end
 
   def search

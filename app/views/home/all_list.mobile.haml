@@ -1,0 +1,56 @@
+
+:javascript
+  var index = 1
+
+  $(window).scroll(
+  function()
+  {
+    var fire = $("#hid_inp").attr("value");
+    var add_pointers = $("#add_pointers").attr("value");
+
+      if (($(window).scrollTop() > 1 && (($(window).scrollTop() + $(window).height()) / $(document).height()) < 0.75) && (fire == "1"))
+      {
+        fire = "0";
+      };
+
+      if ($(window).scrollTop() == 0 || ($(window).scrollTop() > 1 && (($(window).scrollTop() + $(window).height()) / $(document).height()) > 0.75) && (fire == "0"))
+        {
+
+          $.get("/dynamic_content?index="+index,
+            function(data) {
+              data;
+          });
+
+          fire = "1";
+          index = index + 1;
+        };
+      $("#hid_inp").attr("value", fire);
+  });
+
+-#= @resc_arr.size
+-#= @pointers.size
+
+-#=======header===============
+- content_for :header do
+  %div{"data-role" => "header", "data-theme" => "a", "data-position" => "fixed"}
+    %a.ui-btn-left{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-role" => "button", :href => "/", "data-transition" => "slide", "data-direction" => "reverse"}
+      Home
+    %h3
+      List of Places
+
+-#=======content===============
+
+%input{:id=>"add_pointers", :type => "hidden", :value => "1"}
+%input{:id=>"hid_inp", :type => "hidden", :value => "0"}
+
+-#%ul{"data-role" => "listview", "id" => "scroll_container"}
+-#  = render :partial => 'pointers'
+
+%div{"data-role" => "collapsible-set", "id" => "scroll_container"}
+  = render :partial => 'pointers'
+
+-#.row
+  .span12
+    %p
+      Number of points:
+      = @all_pointers.size
