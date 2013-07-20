@@ -1,6 +1,11 @@
 //listview('refresh')
-
-$("#scroll_container").append("<%= escape_javascript render(:partial => "pointers.mobile", :object => @pointers)%>").collapsibleset( "refresh" )
+if ($('#scroll_container').hasClass('ui-collapsible-set')) {
+    $("#scroll_container").append("<%= escape_javascript render(:partial => "pointers.mobile", :object => @pointers)%>").collapsibleset("refresh")
+    $.mobile.loading( 'hide' )
+}
+else {
+    $(".scroll_container").append("<%= escape_javascript render(:partial => "pointers", :object => @pointers)%>")
+}
 <%- if @add_pointers.nil? || @add_pointers.length == 0%>
 $("#add_pointers").attr("value", "0")
 <%- end %>

@@ -3,6 +3,8 @@
   %div{"data-role" => "header", "data-theme" => "a"}
     %a.ui-btn-left{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-role" => "button", :href => "/", "data-transition" => "slide", "data-direction" => "reverse"}
       Home
+    %a.ui-btn-right{"data-icon" => "gear", "data-iconpos" => "right", "data-role" => "button", :href => "/options", "data-transition" => "slide"}
+      Options
     %h3
       Map
 
@@ -24,8 +26,21 @@
 
 :javascript
 
+  function GetMarkersFromJSON(url){
+    $.getJSON( url, function(data) {
+        $.each( data, function(i, marker) {
+            $('#map_canvas').gmap('addMarker', {
+                'position': new google.maps.LatLng(marker.latitude, marker.longitude),
+                'bounds': true
+            }).click(function() {
+                $('#map_canvas').gmap('openInfoWindow', { 'content': marker.description }, this);
+            });
+        });
+    });
+  }
+
   $("div:jqmData(role='page'):last").on("pageshow", function() {
-          $('#map_canvas').gmap('refresh');
+          //$('#map_canvas').gmap('refresh');
   });
 
 
@@ -34,24 +49,55 @@
        //      jQuery('#map_canvas').gmap('openInfoWindow', {'content': 'Hello World!'}, this);
        //    });
 
+        //============= Get params from LocalStorage ============================================
+          if (localStorage["detect_location"] !== undefined) {
+            if (localStorage["detect_location"] == "on")  {
+              detect_location = 1
+            }
+            else {
+              detect_location = 0
+            }
+          } else {
+            detect_location = 0
+          }
+
+          if (localStorage["radius"] !== undefined) {
+            radius = localStorage["radius"]
+          } else {
+            radius = 0
+          }
+
+          opts = {'detect_location': detect_location,
+          'radius':radius
+          };
+        //=======================================================================================
 
 
+        if (opts.detect_location == 1){
+          //============================ My Location ==============================================
+          $('#map_canvas').gmap({ 'disableDefaultUI':false, 'callback': function() {
+              var self = this;
+              self.getCurrentPosition(function(position, status) {
+                  if ( status === 'OK' ) {
+                      self.set('clientPosition', new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                      self.addMarker({'position': self.get('clientPosition'), 'bounds': true, 'icon':'http://google-maps-icons.googlecode.com/files/friends.png'});
+                      self.addShape('Circle', { 'strokeWeight': 0, 'fillColor': "#008595", 'fillOpacity': 0.25, 'center': self.get('clientPosition'), 'radius': 5, clickable: false });
+                      opts.lat = position.coords.latitude;
+                      opts.lng = position.coords.longitude;
+                      opts.url = function(){if((opts.detect_location == 1)&& (opts.radius !== 0)){return 'pointers.json?radius='+opts.radius+'&lat='+opts.lat+'&lng='+opts.lng}}();
+                      GetMarkersFromJSON(opts.url);
+                  }
+              });
+          }});
+          //====================================================================================
+        }
+        else
+        {
+          $('#map_canvas').gmap().bind('init', function() {
+          GetMarkersFromJSON('pointers.json');
 
-        $('#map_canvas').gmap({ 'disableDefaultUI':false, 'callback': function() {
-            var self = this;
-            self.getCurrentPosition(function(position, status) {
-                if ( status === 'OK' ) {
-                    self.set('clientPosition', new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                    self.addMarker({'position': self.get('clientPosition'), 'bounds': true, 'icon':'http://google-maps-icons.googlecode.com/files/friends.png'});
-                    self.addShape('Circle', { 'strokeWeight': 0, 'fillColor': "#008595", 'fillOpacity': 0.25, 'center': self.get('clientPosition'), 'radius': 5, clickable: false });
-                }
-            });
-        }});
-
-
-
-
-
+          });
+        }
   });
 
 

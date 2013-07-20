@@ -5,6 +5,8 @@ GpsParser::Application.routes.draw do
   devise_for :users
   devise_for :users do get '/users/sign_out' => 'devise/sessions#destroy' end
 
+  root :to => "home#index"
+
   match 'map' => 'home#map', :as => 'map'
   match 'list' => 'home#all_list', :as => 'list'
   match '/dynamic_content' => 'home#dynamic_content'
@@ -18,6 +20,7 @@ GpsParser::Application.routes.draw do
   match 'show_pointer_on_map/:id' => 'home#show_pointer_on_map', :as => 'show_pointer_on_map'
   match 'create_visit/:id' => 'desires#create_visit'
   match 'set_visited/:id' => 'desires#set_visited'
+  match 'options' => 'pointers#options'
 
 
   # The priority is based upon order of creation:
@@ -70,7 +73,6 @@ GpsParser::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,43 @@
+-#=======header===============
+- content_for :header do
+  %div{"data-role" => "header", "data-theme" => "a"}
+    %a.ui-btn-left{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-rel" => "back", "data-role" => "button", :href => "/map"}
+      Map
+    %h3
+      Header
+
+-#=======content===============
+%div{"data-role" => "fieldcontain"}
+  %label{:for => "toggleswitch2"}
+    Detect my Position
+  %select#detect_location{"data-role" => "slider", "data-theme" => "", :name => "toggleswitch2"}
+    %option{:value => "off"}
+      Off
+    %option{:value => "on"}
+      On
+%div{"data-role" => "fieldcontain"}
+  %label{:for => "slider1"}
+    Display Points in Radius (km)
+  %input#radius{"data-highlight" => "true", :max => "100", :min => "0", :name => "slider", :type => "range", :value => "50"}/
+%a{"data-role" => "button", :href => "#", "onclick" => "save_opts();"}
+  Save
+
+:javascript
+
+   // Set switches to saved positions
+  $("div:jqmData(role='page'):last").on("pageinit", function() {
+    if (localStorage["detect_location"] !== undefined) {
+      $( "#detect_location" ).val(localStorage["detect_location"]).slider("refresh");
+    };
+
+    if (localStorage["radius"] !== undefined) {
+      $('#radius').val(localStorage["radius"]).slider("refresh");
+    };
+  })
+
+  // Save to Local Storage switches values
+  function save_opts(){
+    localStorage["detect_location"] = $( "#detect_location" ).val();
+    localStorage["radius"] = $( "#radius" ).val();
+    window.location.href = "/map";
+  }

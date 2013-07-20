@@ -13,9 +13,9 @@
         fire = "0";
       };
 
-      if ($(window).scrollTop() == 0 || ($(window).scrollTop() > 1 && (($(window).scrollTop() + $(window).height()) / $(document).height()) > 0.75) && (fire == "0"))
+      if (($(window).scrollTop() == 0 && add_pointers == 1) || ($(window).scrollTop() > 1 && (($(window).scrollTop() + $(window).height()) / $(document).height()) > 0.75) && (fire == "0"))
         {
-
+          $.mobile.loading( 'show' )
           $.get("/dynamic_content?index="+index,
             function(data) {
               data;
@@ -25,6 +25,7 @@
           index = index + 1;
         };
       $("#hid_inp").attr("value", fire);
+      $("#add_pointers").attr("value", index);
   });
 
 -#= @resc_arr.size
