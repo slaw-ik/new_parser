@@ -4,18 +4,18 @@ class PointersController < ApplicationController
       radius = params[:radius]
       lng = params[:lng]
       lat = params[:lat]
-      query = "SELECT
-                latitude,longitude,description, (
-                6371 * acos(
-                    cos(radians(#{lat}) )
-                * cos( radians( latitude ) )
-                * cos( radians( longitude ) - radians(#{lng}) )
-                + sin( radians(#{lat}) )
-                * sin( radians( latitude ) )
-                ) )
-                AS distance
+
+      query =  "SELECT latitude, longitude, description
                 FROM pointers
-                HAVING distance < #{radius}"
+                GROUP BY id
+                HAVING (
+                 6371 * acos(
+                     cos(radians(#{lat}) )
+                    * cos( radians( latitude ) )
+                    * cos( radians( longitude ) - radians(#{lng}) )
+                    + sin( radians(#{lat}) )
+                    * sin( radians( latitude ) )
+                    ) ) < #{radius}"
 
       @pointers = Pointer.find_by_sql(query)
       else
