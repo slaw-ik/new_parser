@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     #pointers = Pointer.all
     user_id = current_user.blank? ? 0 : current_user.id
 
-    pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.`status`
+    pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
                                     FROM pointers
                                     LEFT OUTER JOIN desires
                                     ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}")
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     @zoom = params[:zoom] ? params[:zoom] : 9
 
     respond_to do |format|
-      format.html { @json = build_map(pointers, {status: "default"}) }
+      format.html { @json = build_map(pointers, {stat: "default"}) }
       format.mobile
     end
 
@@ -30,7 +30,7 @@ class HomeController < ApplicationController
   def othermap
     pointers = Pointer.first
     #@size = pointers.size
-    @json = build_map(pointers, {status: "default"})
+    @json = build_map(pointers, {stat: "default"})
 
     respond_to do |format|
       format.js { render :layout => false }
@@ -39,14 +39,14 @@ class HomeController < ApplicationController
 
   def my_places
     user_id = current_user.blank? ? 0 : current_user.id
-    status = params[:status]
-    unless status.blank?
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.`status` FROM pointers, desires, users
+    stat = params[:stat]
+    unless stat.blank?
+      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat FROM pointers, desires, users
 	                                    WHERE desires.user_id = #{user_id}
-                                            AND desires.status = #{status}
+                                            AND desires.stat = #{stat}
                                             AND pointers.id = desires.pointer_id ")
     else
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.`status` FROM pointers, desires, users
+      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat FROM pointers, desires, users
 	                                    WHERE desires.user_id = #{user_id} and pointers.id = desires.pointer_id ")
     end
 
@@ -92,7 +92,7 @@ class HomeController < ApplicationController
 
       #pointers = Pointer.where { full_desc =~ "%#{q}%" }
 
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.`status`
+      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
                                     FROM pointers
                                     LEFT OUTER JOIN desires
                                     ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
@@ -100,7 +100,7 @@ class HomeController < ApplicationController
 
 
       @size = pointers.size
-      @json = build_map(pointers, {status: "default"})
+      @json = build_map(pointers, {stat: "default"})
 
       respond_to do |format|
         format.js { render :layout => false }
@@ -116,14 +116,14 @@ class HomeController < ApplicationController
     unless params[:id].blank?
       id = params[:id]
 
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.`status`
+      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
                                     FROM pointers
                                     LEFT OUTER JOIN desires
                                     ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
                                     where pointers.id = #{id}")
 
       @desc = pointers.first.full_desc
-      @json = build_map(pointers, {status: "default"})
+      @json = build_map(pointers, {stat: "default"})
 
       @size = 1
 
@@ -244,12 +244,12 @@ class HomeController < ApplicationController
       marker.infowindow render_to_string(:partial => "pointers/infowindow", :locals => {:point => point})
       #marker.title "#{city.name}"
       #marker.json({ :population => city.population})
-      #options[:status] = point.status.blank? ? options[:status] : nil
-      status_dir = options[:status].blank? ? point.try(:status) : (point.try(:status).blank? ? options[:status] : point.status)
-      #status_dir = "default"
+      #options[:stat] = point.stat.blank? ? options[:stat] : nil
+      stat_dir = options[:stat].blank? ? point.try(:stat) : (point.try(:stat).blank? ? options[:stat] : point.stat)
+      #stat_dir = "default"
       width = options[:width].blank? ? 32 : options[:width]
       height = options[:height].blank? ? 37 : options[:height]
-      marker.picture({:picture => "/assets/markers/#{status_dir}/pin-export.png",
+      marker.picture({:picture => "/assets/markers/#{stat_dir}/pin-export.png",
                       :width => width,
                       :height => height})
     end

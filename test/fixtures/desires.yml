@@ -3,9 +3,9 @@
 one:
   point_id: 1
   user_id: 1
-  status: 1
+  stat: 1
 
 two:
   point_id: 1
   user_id: 1
-  status: 1
+  stat: 1

@@ -5,7 +5,7 @@ class DesiresController < ApplicationController
     record = current_user.desires.where(:pointer_id => @link_id).first
 
     if record.blank?
-      new_desire = Desire.new(:user_id => current_user.id, :pointer_id => @link_id, :status => 0)
+      new_desire = Desire.new(:user_id => current_user.id, :pointer_id => @link_id, :stat => 0)
       if new_desire.save
         @success = 'success'
         @message = 'Place was successfully added to your desires.'
@@ -14,11 +14,11 @@ class DesiresController < ApplicationController
         @message = 'Error saving. Please try again later.'
       end
     else
-      if record.status == 0
+      if record.stat == 0
         @success = 'error'
         @message = 'This place already is in your desires.'
       else
-        record.update_attributes(:status => 0)
+        record.update_attributes(:stat => 0)
         @success = 'success'
         @message = 'Place was successfully added to your desires.'
       end
@@ -34,7 +34,7 @@ class DesiresController < ApplicationController
     record = current_user.desires.where(:pointer_id => @link_id).first
 
     if record.blank?
-      new_desire = Desire.new(:user_id => current_user.id, :pointer_id => @link_id, :status => 1)
+      new_desire = Desire.new(:user_id => current_user.id, :pointer_id => @link_id, :stat => 1)
       if new_desire.save
         @success = 'success'
         @message = 'Place was successfully marked as visited.'
@@ -43,11 +43,11 @@ class DesiresController < ApplicationController
         @message = 'Error saving. Please try again later.'
       end
     else
-      if record.status == 1
+      if record.stat == 1
         @success = 'error'
         @message = 'This place is already visited.'
       else
-        record.update_attributes(:status => 1)
+        record.update_attributes(:stat => 1)
         @success = 'success'
         @message = 'Place was successfully marked as visited.'
       end

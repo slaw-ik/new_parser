@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027112953) do
+ActiveRecord::Schema.define(:version => 20130721092929) do
 
   create_table "desires", :force => true do |t|
-    t.integer  "point_id"
+    t.integer  "pointer_id"
     t.integer  "user_id"
-    t.integer  "status"
+    t.integer  "stat"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
