@@ -8,14 +8,14 @@
 
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
-    = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js'
+    /= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js'
 
     = javascript_include_tag '//vk.com/js/api/openapi.js?54'
 
     %script{:type => "text/javascript"}
       VK.init({apiId: 3164757, onlyWidgets: true});
 
-    = stylesheet_link_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css"
+    /= stylesheet_link_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css"
     = csrf_meta_tags
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
   %body
@@ -87,4 +87,4 @@
           Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
     .counter{:style => "display:none;"}
-      = render :partial => "layouts/counter"
+      /= render :partial => "layouts/counter"

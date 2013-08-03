@@ -37,7 +37,7 @@ build = (from = null, to = null) ->
 
 $ ->
 #  $('.gmnoprint[controlheight="356"]').css("left", "50px");
-  $(".jquery-ui-date").datepicker()
+  #$(".jquery-ui-date").datepicker()
   $(".tabbable li").click(show_panel)
 #  $('.map_section').click ->
 #    $('img[style*="left: -18px; top: -44px"]:first').trigger('click')
