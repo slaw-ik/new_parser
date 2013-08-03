@@ -1,5 +1,5 @@
 class Desire < ActiveRecord::Base
-  attr_accessible :pointer_id, :status, :user_id
+  attr_accessible :pointer_id, :stat, :user_id
 
   belongs_to :pointer
   belongs_to :user

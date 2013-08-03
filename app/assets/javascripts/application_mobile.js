@@ -10,18 +10,11 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require twitter/bootstrap
-//= require_tree ./desktop
-//= require_tree ./gmaps4rails
-//= jquery.validate
-//= bootstrap
-
-//= script
-
-
-
-
-
-
+// require_tree ./mobile
+//= require ./mobile/jquery-1.9.1.min.js
+//= require ./mobile/jquery.mobile-1.3.1.min.js
+//= require ./mobile/jquery.ui.map.js
+//= require ./mobile/jquery.ui.map.extensions.js
+//= require ./mobile/jquery.ui.map.overlays.js
+//= require ./mobile/codiqa.ext.js
+//= require ./mobile/markerclusterer.min.js
