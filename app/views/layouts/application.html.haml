@@ -52,8 +52,8 @@
               -if user_signed_in? && current_user.is_admin?
                 %li= link_to "Parse", parse_path
             %ul.nav.pull-right
-              - if user_signed_in?
-                %li.dropdown
+              %li.dropdown
+                - if user_signed_in?
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                     = current_user.email
                     %b.caret
@@ -63,10 +63,17 @@
                     %li.divider
                     %li
                       = link_to "Sign out", destroy_user_session_path, :method => :delete
-              - else
-                %li
-                  %a{:href => new_user_session_path}
-                    Sign in
+                - else
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    Please sign in or sign up
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li
+                      = link_to "Sign In", new_user_session_path
+                    %li.divider
+                    %li
+                      = link_to "Sign Up", new_registration_path(:user)
+
     .container
       = render :partial => 'layouts/message'
       .row

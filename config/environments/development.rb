@@ -43,7 +43,7 @@ GpsParser::Application.configure do
       :port                 => 587,
       :domain               => 'baci.lindsaar.net',
       :user_name            => 'slawikdft@gmail.com',
-      :password             => 'Myrkin1985',
+      :password             => 'Myrkin240985',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
 

@@ -233,8 +233,9 @@ class HomeController < ApplicationController
     #set_var(@resc_arr)
     #@@resc_arr = @resc_arr
     @pointers = Pointer.all
-    render :action => :index
-    #redirect_to root_path
+    #@last_points = @pointers.last(10)
+    #render :action => :index
+    redirect_to root_path
   end
 
   private
