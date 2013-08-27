@@ -25,6 +25,10 @@ class Pointer < ActiveRecord::Base
 
   #====================================================
 
+  def self.find_in_radius(radius, lng, lat)
+
+  end
+
   def gmaps4rails_address
     #self.address #describe how to retrieve the address from your model
     "#{self.latitude}, #{self.longitude}"

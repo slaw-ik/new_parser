@@ -1,5 +1,8 @@
 class PointersController < ApplicationController
   def index
+
+    @pointers = Pointer.find_in_radius(params[:radius], params[:lng], params[:lat])
+
     if params[:radius].present? && params[:lng].present? && params[:lat].present?
       radius = params[:radius]
       lng = params[:lng]
