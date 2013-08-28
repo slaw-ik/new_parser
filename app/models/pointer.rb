@@ -25,54 +25,47 @@ class Pointer < ActiveRecord::Base
 
   #====================================================
 
-  def self.find_in_radius(radius, lng, lat)
+  #Finding the places in a radius
+  #<i>Pointers.search_in_radius(options = {})</i>  ->  array of pointers
+  #Options:
+  #:radius - radius in which you wanna search a points
+  #:lat - latitude of your target point
+  #:lng - longitude of your target point
+  def self.search_in_radius(options = {})
 
+    if options[:radius] && options[:lng] && options[:lat] && options[:radius] != 0
+      radius = options[:radius]
+      lng = options[:lng]
+      lat = options[:lat]
+
+      query = "SELECT latitude, longitude, description
+                FROM pointers
+                GROUP BY id
+                HAVING (
+                 6371 * acos(
+                     cos(radians(#{lat}) )
+                    * cos( radians( latitude ) )
+                    * cos( radians( longitude ) - radians(#{lng}) )
+                    + sin( radians(#{lat}) )
+                    * sin( radians( latitude ) )
+                    ) ) < #{radius}"
+
+      return self.find_by_sql(query)
+    else
+      return self.all
+    end
+
+  end
+
+  def self.select_pointers_by_user(user_id = 0)
+
+    return Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
+                                FROM pointers
+                                LEFT OUTER JOIN desires
+                                ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}")
   end
 
   def gmaps4rails_address
-    #self.address #describe how to retrieve the address from your model
     "#{self.latitude}, #{self.longitude}"
   end
-
-  #def gmaps4rails_infowindow
-  #  descr_link = "<p style ='font-size: 12px; font-family = 'verdana'; '>
-  #                  #{self.description}
-  #                </p>
-  #                <br>
-  #                <a data-remote='true' href='/home/full_desc?bla=#{self.id}'>
-  #                  Full description (see under the map)
-  #                </a>
-  #                <br>"
-  #
-  #  unless User.current_user.blank?
-  #    visit_link = "<a id='v_link_#{self.id}' data-remote='true' href = '/create_visit/#{self.id}' >
-  #                    <i class = 'icon-map-marker'>
-  #                      I want to visit this place
-  #                    </i>
-  #                  </a>
-  #                  <br>
-  #                  <a id='f_link_#{self.id}' data-remote='true' href = '/set_visited/#{self.id}' >
-  #                    <i class = 'icon-flag'>
-  #                      Mark as visited place
-  #                    </i>
-  #                  </a>
-  #                  <br>
-  #                  <br>
-  #                  <br>"
-  #  else
-  #    visit_link = ""
-  #  end
-  #
-  #  return descr_link + visit_link
-  #
-  #end
-  #
-  #def gmaps4rails_marker_picture
-  #  {
-  #      #"picture" => self.image_path, # image_path column has to contain something like '/assets/my_pic.jpg'.
-  #      :picture => "http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-66c547/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/pin-2.png",
-  #      :width => 32, #beware to resize your pictures properly
-  #      :height => 37 #beware to resize your pictures properly
-  #  }
-  #end
 end

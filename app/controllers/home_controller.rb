@@ -5,17 +5,11 @@ class HomeController < ApplicationController
 
   def index
     @last_points = Pointer.limit(10).order("rec_date DESC, id ASC")
-
   end
 
   def map
-    #pointers = Pointer.all
     user_id = current_user.blank? ? 0 : current_user.id
-
-    pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
-                                    FROM pointers
-                                    LEFT OUTER JOIN desires
-                                    ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}")
+    pointers = Pointer.select_pointers_by_user(user_id)
 
     @size = pointers.size
     @zoom = params[:zoom] ? params[:zoom] : 9
@@ -24,9 +18,11 @@ class HomeController < ApplicationController
       format.html { @json = build_map(pointers, {stat: "default"}) }
       format.mobile
     end
-
   end
 
+
+  #TODO
+  #Need to remove
   def othermap
     pointers = Pointer.first
     #@size = pointers.size

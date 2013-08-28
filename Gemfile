@@ -38,12 +38,14 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 end
 
-group :development do
+group :development, :test do
   gem 'hpricot'
   gem 'ruby_parser'
   #gem 'better_errors'
   #gem 'binding_of_caller'
   gem 'meta_request'
+
+  gem 'rspec-rails', '~> 2.0'
 end
 
 group :production do
