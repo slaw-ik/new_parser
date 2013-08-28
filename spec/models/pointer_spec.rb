@@ -58,6 +58,7 @@ describe Pointer do
       point1 = Pointer.create(:latitude => 22.1234, :longitude => 23.456, :description => "desc1", :full_desc => "f_desc1", :rec_date => Date.today)
       point2 = Pointer.create(:latitude => 12.1234, :longitude => 23.456, :description => "desc2", :full_desc => "f_desc2", :rec_date => Date.today)
       point3 = Pointer.create(:latitude => 12.1345, :longitude => 23.456, :description => "desc3", :full_desc => "f_desc3", :rec_date => Date.today)
+      point4 = Pointer.create(:latitude => 12.7654, :longitude => 23.456, :description => "desc3", :full_desc => "f_desc3", :rec_date => Date.today)
       Desire.create(:user_id => @user.id, :pointer_id => point1.id, :stat => 0)
       Desire.create(:user_id => @user.id, :pointer_id => point2.id, :stat => 1)
       Desire.create(:user_id => @user.id, :pointer_id => point3.id, :stat => 0)
@@ -65,20 +66,24 @@ describe Pointer do
     end
 
     it "Should show all pointers if no user_id" do
-      Pointer.select_pointers_by_user().size.should == 3
+      Pointer.select_pointers_by_user().size.should == 4
     end
 
     it "Should show all pointers if user_id not present and status presents" do
-      Pointer.select_pointers_by_user(0, 1, true).size.should == 3
+      Pointer.select_pointers_by_user(0, true, 1).size.should == 4
     end
 
-    it "Should show only users pointers if user_id present" do
-      Pointer.select_pointers_by_user(@user.id).size.should == 3
+    it "Should show all pointers if user_id but 'my' not present" do
+      Pointer.select_pointers_by_user(@user.id).size.should == 4
+    end
+
+    it "Should show only users pointers if user_id and 'my' present" do
+      Pointer.select_pointers_by_user(@user.id, true).size.should == 3
     end
 
     it "Should show only users pointers with status if user_id and status presents" do
-      Pointer.select_pointers_by_user(@user.id, 1, true).size.should == 1
-      Pointer.select_pointers_by_user(@user.id, 0, true).size.should == 2
+      Pointer.select_pointers_by_user(@user.id, true, 1).size.should == 1
+      Pointer.select_pointers_by_user(@user.id, true, 0).size.should == 2
     end
 
 

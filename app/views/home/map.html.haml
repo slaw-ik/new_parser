@@ -40,7 +40,13 @@
 
     - center_latitude = (defined? center_lat) ? center_lat : 48.471303
     - center_longitude = (defined? center_long) ? center_long : 22.882928
-    = gmaps({"map_options" => {"auto_adjust" => false, "auto_zoom" => true, "zoom" => @zoom.to_i, "center_latitude" => center_latitude, "center_longitude" => center_longitude },"markers" => {"data" => @json }})
+    = gmaps({ "map_options" => {  "auto_adjust" => false,
+                                  "auto_zoom" => true,
+                                  "zoom" => @zoom.to_i,
+                                  "center_latitude" => center_latitude,
+                                  "center_longitude" => center_longitude,
+                                  "do_clustering" => true },
+              "markers" => {"data" => @json }})
 
 
   -#.well{:style => "margin-top:20px;"}
