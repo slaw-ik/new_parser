@@ -57,12 +57,25 @@ class Pointer < ActiveRecord::Base
 
   end
 
-  def self.select_pointers_by_user(user_id = 0)
+  def self.select_pointers_by_user(user_id = 0, stat = nil)
 
-    return Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
-                                FROM pointers
-                                LEFT OUTER JOIN desires
-                                ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}")
+    unless user_id == 0
+      unless stat.blank?
+        self.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
+                                      FROM pointers, desires, users
+	                                    WHERE desires.user_id = #{user_id}
+                                            AND desires.stat = #{stat}
+                                            AND pointers.id = desires.pointer_id ")
+      else
+        self.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
+                                      FROM pointers, desires, users
+	                                    WHERE desires.user_id = #{user_id} AND pointers.id = desires.pointer_id ")
+      end
+    else
+      self.all
+    end
+
+
   end
 
   def gmaps4rails_address

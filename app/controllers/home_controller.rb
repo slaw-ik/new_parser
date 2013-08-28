@@ -21,8 +21,8 @@ class HomeController < ApplicationController
   end
 
 
-  #TODO
-  #Need to remove
+  # TODO
+  # Need to remove
   def othermap
     pointers = Pointer.first
     #@size = pointers.size
@@ -33,18 +33,13 @@ class HomeController < ApplicationController
     end
   end
 
+  # TODO
+  # Need to remove and implement in #map action
   def my_places
     user_id = current_user.blank? ? 0 : current_user.id
     stat = params[:stat]
-    unless stat.blank?
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat FROM pointers, desires, users
-	                                    WHERE desires.user_id = #{user_id}
-                                            AND desires.stat = #{stat}
-                                            AND pointers.id = desires.pointer_id ")
-    else
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat FROM pointers, desires, users
-	                                    WHERE desires.user_id = #{user_id} and pointers.id = desires.pointer_id ")
-    end
+
+    pointers = Pointer.select_pointers_by_user(user_id, stat)
 
     @size = pointers.size
     @json = build_map(pointers)
@@ -61,6 +56,8 @@ class HomeController < ApplicationController
     end
   end
 
+  #TODO
+  # Need to remove and implement in pointers#index
   def all_list
     @all_pointers = Pointer.order("rec_date DESC, id ASC")
     @pointers = @all_pointers.limit(20)

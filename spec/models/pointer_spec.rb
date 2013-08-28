@@ -51,4 +51,37 @@ describe Pointer do
 
   end
 
+  describe "selection by User" do
+
+    before(:all) do
+      @user = User.create(:email => "test@test.com", :password => "password", :password_confirmation => "password")
+      point1 = Pointer.create(:latitude => 22.1234, :longitude => 23.456, :description => "desc1", :full_desc => "f_desc1", :rec_date => Date.today)
+      point2 = Pointer.create(:latitude => 12.1234, :longitude => 23.456, :description => "desc2", :full_desc => "f_desc2", :rec_date => Date.today)
+      point3 = Pointer.create(:latitude => 12.1345, :longitude => 23.456, :description => "desc3", :full_desc => "f_desc3", :rec_date => Date.today)
+      Desire.create(:user_id => @user.id, :pointer_id => point1.id, :stat => 0)
+      Desire.create(:user_id => @user.id, :pointer_id => point2.id, :stat => 1)
+      Desire.create(:user_id => @user.id, :pointer_id => point3.id, :stat => 0)
+      Desire.create(:user_id => 100, :pointer_id => point3.id, :stat => 1)
+    end
+
+    it "Should show all pointers if no user_id" do
+      Pointer.select_pointers_by_user().size.should == 3
+    end
+
+    it "Should show all pointers if user_id not present and status presents" do
+      Pointer.select_pointers_by_user(0, 1).size.should == 3
+    end
+
+    it "Should show only users pointers if user_id present" do
+      Pointer.select_pointers_by_user(@user.id).size.should == 3
+    end
+
+    it "Should show only users pointers with status if user_id and status presents" do
+      Pointer.select_pointers_by_user(@user.id, 1).size.should == 1
+      Pointer.select_pointers_by_user(@user.id, 0).size.should == 2
+    end
+
+
+  end
+
 end
