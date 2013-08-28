@@ -57,9 +57,9 @@ class Pointer < ActiveRecord::Base
 
   end
 
-  def self.select_pointers_by_user(user_id = 0, stat = nil)
+  def self.select_pointers_by_user(user_id = 0, stat = nil, my = false)
 
-    unless user_id == 0
+    if user_id != 0 && my
       unless stat.blank?
         self.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
                                       FROM pointers, desires, users

@@ -9,10 +9,15 @@ class HomeController < ApplicationController
 
   def map
     user_id = current_user.blank? ? 0 : current_user.id
-    pointers = Pointer.select_pointers_by_user(user_id)
+    stat = params[:stat]
+    my = params[:my] == 1
+
+    pointers = Pointer.select_pointers_by_user(user_id, stat, my)
 
     @size = pointers.size
     @zoom = params[:zoom] ? params[:zoom] : 9
+
+
 
     respond_to do |format|
       format.html { @json = build_map(pointers, {stat: "default"}) }

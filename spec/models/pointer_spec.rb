@@ -69,7 +69,7 @@ describe Pointer do
     end
 
     it "Should show all pointers if user_id not present and status presents" do
-      Pointer.select_pointers_by_user(0, 1).size.should == 3
+      Pointer.select_pointers_by_user(0, 1, true).size.should == 3
     end
 
     it "Should show only users pointers if user_id present" do
@@ -77,8 +77,8 @@ describe Pointer do
     end
 
     it "Should show only users pointers with status if user_id and status presents" do
-      Pointer.select_pointers_by_user(@user.id, 1).size.should == 1
-      Pointer.select_pointers_by_user(@user.id, 0).size.should == 2
+      Pointer.select_pointers_by_user(@user.id, 1, true).size.should == 1
+      Pointer.select_pointers_by_user(@user.id, 0, true).size.should == 2
     end
 
 
