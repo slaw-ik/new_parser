@@ -84,7 +84,6 @@ class Pointer < ActiveRecord::Base
       self.all
     end
 
-
   end
 
   def gmaps4rails_address

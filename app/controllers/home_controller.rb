@@ -24,35 +24,8 @@ class HomeController < ApplicationController
     end
   end
 
-
-  # TODO
-  # Need to remove
-  def othermap
-    pointers = Pointer.first
-    #@size = pointers.size
-    @json = build_map(pointers, {stat: "default"})
-
-    respond_to do |format|
-      format.js { render :layout => false }
-    end
-  end
-
-  # TODO
-  # Need to remove and implement in #map action
-  def my_places
-    user_id = current_user.blank? ? 0 : current_user.id
-    stat = params[:stat]
-
-    pointers = Pointer.select_pointers_by_user(user_id, stat)
-
-    @size = pointers.size
-    @json = build_map(pointers)
-
-    render :action => :map
-  end
-
   def full_desc
-    id = params[:bla]
+    id = params[:id]
     @desc = (Pointer.find(id).full_desc).delete("\r")
 
     respond_to do |format|
@@ -240,11 +213,7 @@ class HomeController < ApplicationController
   def build_map(collection, options = {})
     collection.to_gmaps4rails do |point, marker|
       marker.infowindow render_to_string(:partial => "pointers/infowindow", :locals => {:point => point})
-      #marker.title "#{city.name}"
-      #marker.json({ :population => city.population})
-      #options[:stat] = point.stat.blank? ? options[:stat] : nil
       stat_dir = options[:stat].blank? ? point.try(:stat) : (point.try(:stat).blank? ? options[:stat] : point.stat)
-      #stat_dir = "default"
       width = options[:width].blank? ? 32 : options[:width]
       height = options[:height].blank? ? 37 : options[:height]
       marker.picture({:picture => "/assets/markers/#{stat_dir}/pin-export.png",

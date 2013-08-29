@@ -10,13 +10,17 @@
   if $(".tabbable").hasClass('showed')
     $(".tabbable").animate({"left": "+=315px"}, "slow").removeClass("showed")
 
+
 #@show_panel = () ->
 #  unless $(".tabbable").position().left > 0
 #    $(".tabbable").animate({"left": "+=310px"}, "slow")
 
 @show_panel = () ->
+  active_tab = $(this).hasClass('active')
   unless $(".tabbable").hasClass('showed')
     $(".tabbable").animate({"left": "-=315px"}, "slow").addClass("showed")
+  else
+    hide_panel() if active_tab
 
 @build_from = (coord) ->
   $('#coord_from').val(coord)
@@ -30,9 +34,8 @@ build = (from = null, to = null) ->
   if from && to
 #    modal.open({content:$("<p>Howdy</p>")})
 
-    $.get('get_direction_info?from='+from+'&to='+to, (data) ->
-        modal.open({content: data}))
-
+    $.get('get_direction_info?from=' + from + '&to=' + to, (data) ->
+      modal.open({content: data}))
 
 
 $ ->

@@ -2,11 +2,7 @@
   <%= point.description %>
 </p>
 <br>
-<%= link_to "Full description", {:controller => "home", :action => "full_desc", :bla => point.id}, :remote => true %>
-<!--<a data-remote='true' href="home/full_desc?bla=<%#= point.id %>">-->
-  <!--Full description-->
-  <!--Full description (see under the map)-->
-<!--</a>-->
+<%= link_to "Full description", {:controller => "home", :action => "full_desc", :id => point.id}, :remote => true %>
 <br>
 <hr>
 <%- unless current_user.blank? %>
