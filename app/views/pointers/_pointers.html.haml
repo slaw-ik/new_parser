@@ -1,10 +1,6 @@
 - @index = 0 if @index.nil?
 - @pointers.each_with_index do |elem, index|
   .well
-    -#.numb
-      = @index + index + 1
     .full_desc{:style => "margin-bottom: 5px;"}
       = elem.full_desc
       = link_to "More...", pointer_path(elem)
-    -#.coord
-      "#{elem.latitude}, #{elem.longitude}"

@@ -35,9 +35,6 @@
       $("#hid_inp").attr("value", fire);
   });
 
--#= @resc_arr.size
--#= @pointers.size
-
 %input{:id=>"add_pointers", :type => "hidden", :value => "1"}
 %input{:id=>"hid_inp", :type => "hidden", :value => "0"}
 
@@ -49,5 +46,5 @@
 .row
   .span12
     .scroll_container
-      = render :partial => 'pointers'
+      = render :partial => 'pointers' #, :collection => @pointers
 

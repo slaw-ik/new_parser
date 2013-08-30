@@ -1,10 +1,5 @@
 - @index = 0 if @index.nil?
 - @pointers.each_with_index do |elem, index|
-  -#%li
-    %a{"href" => "#"}
-      = elem.full_desc
-
-
   %div{"data-role" => "collapsible"}
     %h3
       = elem.description
