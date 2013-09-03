@@ -48,7 +48,7 @@ class PointersController < ApplicationController
                                     where pointers.id = #{id}")
 
       @desc = pointers.first.full_desc
-      @json = build_map(pointers, {stat: "default"})
+      @json = build_map(pointers)
 
       @size = 1
 

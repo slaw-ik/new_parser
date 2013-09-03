@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
 
     respond_to do |format|
-      format.html { @json = build_map(pointers, {stat: "default"}) }
+      format.html { @json = build_map(pointers)}
       format.mobile
     end
   end
@@ -51,7 +51,7 @@ class HomeController < ApplicationController
 
 
       @size = pointers.size
-      @json = build_map(pointers, {stat: "default"})
+      @json = build_map(pointers)
 
       respond_to do |format|
         format.js { render :layout => false }

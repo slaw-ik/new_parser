@@ -88,6 +88,16 @@
 }
 
 .tabbable {
+
+  /* Firefox */
+  height: -moz-calc(100% - 165px);
+  /* WebKit */
+  height: -webkit-calc(100% - 165px);
+  /* Opera */
+  height: -o-calc(100% - 165px);
+  /* Standard */
+  height: calc(100% - 165px);
+
   background-color: #ffffff;
   position: fixed;
   top: 125px;
@@ -111,8 +121,8 @@
     width: 10px;
     vertical-align: middle;
     float: left;
-    height: 350px;
-    padding-top: 340px;
+    //height: 350px;
+    //padding-top: 340px;
     background-color: #d3d3d3;
     border-radius: 5px 0 0 5px;
     padding-left: 2px;
