@@ -1,3 +1,10 @@
 var my_json = <%= raw @json %>;
+var size = "Total points: <%= @size %>";
+var query = "<%= @q %>";
 
 Gmaps.map.replaceMarkers(my_json);
+
+$('.search_block .results').text(size);
+$('.search_block .search_form input.search-query').val(query);
+
+$('li a[href="#tab2"]').click();

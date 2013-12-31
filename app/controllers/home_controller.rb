@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
 
     respond_to do |format|
-      format.html { @json = build_map(pointers)}
+      format.html { @json = build_map(pointers) }
       format.mobile
     end
   end
@@ -41,23 +41,24 @@ class HomeController < ApplicationController
     unless params[:q].blank?
       q = params[:q]
 
-      #pointers = Pointer.where { full_desc =~ "%#{q}%" }
+      pointers = Pointer.where { full_desc =~ "%#{q}%" }
 
-      pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
-                                    FROM pointers
-                                    LEFT OUTER JOIN desires
-                                    ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
-                                    where pointers.full_desc LIKE '%#{q}%'")
+      #pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
+      #                              FROM pointers
+      #                              LEFT OUTER JOIN desires
+      #                              ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
+      #                              where pointers.full_desc LIKE '%#{q}%'")
+      @q = q
+    else
+      @q = ""
+      pointers = Pointer.all
+    end
 
+    @size = pointers.size
+    @json = build_map(pointers)
 
-      @size = pointers.size
-      @json = build_map(pointers)
-
-      respond_to do |format|
-        format.js { render :layout => false }
-      end
-
-      #render :action => :map
+    respond_to do |format|
+      format.js { render :layout => false }
     end
   end
 

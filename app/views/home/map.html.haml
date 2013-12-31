@@ -4,7 +4,7 @@
       %li.active
         %a{"data-toggle" => "tab", :href => "#tab1"} Description
       %li
-        %a{"data-toggle" => "tab", :href => "#tab2"} Section 2
+        %a{"data-toggle" => "tab", :href => "#tab2"} Search
     .hide-arrow{:onclick => "hide_panel();"}
       %i.icon-chevron-right
     .tab-content
@@ -14,23 +14,18 @@
         .well.description
           = @desc
       #tab2.tab-pane
-        %p Howdy, I'm in Section 2.
+        .search_block
+          .search_form
+            = form_tag("/search", :method => "get", :class => "form-search") do
+              -#= label_tag(:q, "Search for:")
+              = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
+              = submit_tag("Search", :class => "btn")
+          .results
+            Total points:
+            = @size
+
   %input{:id => "coord_from", :value => "", :style => "display: none;"}
   %input{:id => "coord_to", :value => "", :style => "display: none;"}
-
-  .search_block
-    .results
-      Number of points:
-      = @size
-
-    .search_form
-      = form_tag("/search", :method => "get", :class => "form-search") do
-        -#= label_tag(:q, "Search for:")
-        = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
-        = submit_tag("Search", :class => "btn")
-    -#.calender
-      = form_tag("/search", :method => "get") do
-        = text_field_tag :date, nil, :class => 'jquery-ui-date'
 
   .map_section
     - if defined? zoom

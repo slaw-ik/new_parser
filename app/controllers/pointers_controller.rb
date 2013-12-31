@@ -69,7 +69,7 @@ class PointersController < ApplicationController
 
 
   def parse
-    ParsingMethods::parse
+    ParsingMethods::parse_coords
     redirect_to root_path
   end
 

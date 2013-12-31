@@ -4,3 +4,15 @@
 .form-horizontal .controls {
   margin-left: 170px;
 }
+
+#header-search-form{
+  .input-medium{
+    padding-right: 25px;
+  }
+  i{
+    position: relative;
+    left: -25px;
+    opacity: 0.6;
+    cursor: pointer;
+  }
+}

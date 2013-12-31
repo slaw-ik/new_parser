@@ -8,6 +8,7 @@
 
 @show_panel = () ->
   active_tab = $(this).hasClass('active')
+
   unless $(".tabbable").hasClass('showed')
     $(".tabbable").animate({"left": "-=315px"}, "slow").addClass("showed")
   else
@@ -30,8 +31,12 @@ build = (from = null, to = null) ->
 
 
 $ ->
-  $(".tabbable li").click(show_panel)
+  $(".tabbable li").click ->
+   show_panel()
 
+$ ->
+  $('#header-search-form i').click ->
+    $('#header-search-form .input-medium').val('')
 
 $ ->
   $(".form-search").submit ->

@@ -3,7 +3,7 @@ module ParsingMethods
 require 'nokogiri'
 require 'open-uri'
 
-  def parse
+  def parse_coords
 
     #url = "#{::Rails.root}/todo.html"
     url = "http://poi.uzhgorod.ua/todo.html"

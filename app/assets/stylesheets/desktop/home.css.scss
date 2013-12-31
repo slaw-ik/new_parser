@@ -9,13 +9,12 @@
   vertical-align: inherit;
 }
 
-.results {
-  float: left;
-  margin-top: 5px;
-}
-
-.search_form {
-  float: right;
+.search_block {
+  .search_form {
+    margin: 10px;
+  }
+  .results {
+  }
 }
 
 .map_section {
@@ -109,7 +108,7 @@
   width: 300px;
   z-index: 999;
   &.tabs-left > .nav-tabs {
-      margin-right: -100px;
+    margin-right: -100px;
   }
   .nav-tabs {
     //margin-top: 610px;
