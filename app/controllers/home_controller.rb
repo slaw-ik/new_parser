@@ -33,6 +33,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html { @json = build_map(pointers) }
       format.mobile
+      format.js { @json = build_map(pointers) }
     end
   end
 

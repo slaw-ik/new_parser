@@ -27,18 +27,25 @@ build = (from = null, to = null) ->
     $.get('get_direction_info?from=' + from + '&to=' + to, (data) ->
       modal.open({content: data}))
 
-
 $ ->
+  $body = $("body")
+
+  $(document).on
+    ajaxStart: ->
+      $body.addClass("loading")
+    ajaxStop: ->
+      $body.removeClass("loading")
+
   $(".tabbable li").click ->
-   show_panel()
+    show_panel()
 
   $('#header-search-form i.icon-remove').click ->
     $('#header-search-form .input-medium').val('')
 
-#  $('input.input-medium.search-query').keypress = (e) ->
-#    if e.which == 13
-#      e.preventDefault()
-#      console.log e
+  #  $('input.input-medium.search-query').keypress = (e) ->
+  #    if e.which == 13
+  #      e.preventDefault()
+  #      console.log e
 
 
   $(".form-search").submit ->
@@ -49,3 +56,12 @@ $ ->
       dataType: "script"
     )
     false
+
+  $("body").on "click", "a.ajax_map", (event) ->
+    if $('.wrapper').data('map')
+      event.preventDefault()
+      url = $(this).attr('href')
+      $.ajax(
+        url: url
+        dataType: "script"
+      )
