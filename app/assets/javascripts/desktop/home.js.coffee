@@ -24,8 +24,6 @@
 
 build = (from = null, to = null) ->
   if from && to
-#    modal.open({content:$("<p>Howdy</p>")})
-
     $.get('get_direction_info?from=' + from + '&to=' + to, (data) ->
       modal.open({content: data}))
 
@@ -34,11 +32,15 @@ $ ->
   $(".tabbable li").click ->
    show_panel()
 
-$ ->
-  $('#header-search-form i').click ->
+  $('#header-search-form i.icon-remove').click ->
     $('#header-search-form .input-medium').val('')
 
-$ ->
+#  $('input.input-medium.search-query').keypress = (e) ->
+#    if e.which == 13
+#      e.preventDefault()
+#      console.log e
+
+
   $(".form-search").submit ->
     valuesToSubmit = $(this).serialize()
     $.ajax(

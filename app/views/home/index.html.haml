@@ -1,27 +1,38 @@
--#%h1 Places of Transcarpathia
-
 .list-widget
   .list-head
     %h3
-      10 Last Places
+      10 Last added places
   %ul
     - @last_points.each do |point|
       %li
         %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
         %div
-          %a{:href => "#"}
+          %a{:href => "#{show_pointer_on_map_path(point.id)}"}
             = point.description
 
     %li
       %a.list-view{:href => "/list"} View all
 
-
-
 .list-widget
   .list-head
     %h3
-      %a{:href => "/honzasladek/responsive-web-design"} Responsive Web Design
+      10 Most popular places
   %ul
+    - @last_points.each do |point|
+      %li
+        %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
+        %div
+          %a{:href => "#{show_pointer_on_map_path(point.id)}"}
+            = point.description
+
+    %li
+      %a.list-view{:href => "/list"} View all
+
+-#.list-widget
+  .list-head
+    %h3
+      %a{:href => "/honzasladek/responsive-web-design"} Responsive Web Design
+  -#%ul
     %li
       %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
       %div

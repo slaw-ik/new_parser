@@ -19,6 +19,7 @@
             = form_tag("/search", :method => "get", :class => "form-search") do
               -#= label_tag(:q, "Search for:")
               = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
+              = hidden_field_tag(:slider, "slider")
               = submit_tag("Search", :class => "btn")
           .results
             Total points:
