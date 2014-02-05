@@ -57,6 +57,10 @@ $ ->
     )
     false
 
+  $("body").on "click", "#top_search", (event) ->
+    if $('.wrapper').data('map')
+      $("#top_slider").val("slider")
+
   $("body").on "click", "a.ajax_map", (event) ->
     if $('.wrapper').data('map')
       event.preventDefault()

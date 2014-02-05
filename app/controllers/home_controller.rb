@@ -50,11 +50,10 @@ class HomeController < ApplicationController
   def search
     user_id = current_user.blank? ? 0 : current_user.id
 
-
     unless params[:q].blank?
       q = params[:q]
 
-      unless params.has_key?(:slider)
+      unless params.has_key?(:slider) && params[:slider] == "slider"
         render :js => "window.location.href = '#{map_url(:q => q)}'"
         return
       end

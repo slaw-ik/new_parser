@@ -53,7 +53,8 @@
                 %li= link_to "Parse", parse_path
 
             = form_tag("/search", :method => "get", :class => "navbar-search pull-left", :id => 'header-search-form',:remote=>true) do
-              = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
+              = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search", :id=>"top_search")
+              = hidden_field_tag(:slider, "", :id => "top_slider")
               %i.icon-remove
               -#= submit_tag("Search", :class => "btn")
 
