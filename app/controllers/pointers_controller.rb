@@ -1,13 +1,9 @@
 class PointersController < ApplicationController
   def index
     @pointers = Pointer.search_in_radius(:radius => params[:radius], :lng => params[:lng], :lat => params[:lat])
-
+    pointers_for_json = @pointers.map{|obj| obj.attributes.except("rec_date", "description", "id", "gmaps", "created_at", "updated_at")}
     respond_to do |format|
-      #format.json { render :text => @pointers.select(:latitude,
-      #                                               :longitude,
-      #                                               :description,
-      #                                               :full_desc).to_json, :layout => false }
-      format.json { render :text => @pointers.to_json, :layout => false }
+      format.json { render :text => pointers_for_json.to_json, :layout => false }
       format.html
       format.mobile { render :text => @pointers.to_json, :layout => false }
     end
