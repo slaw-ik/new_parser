@@ -3,6 +3,10 @@ class PointersController < ApplicationController
     @pointers = Pointer.search_in_radius(:radius => params[:radius], :lng => params[:lng], :lat => params[:lat])
 
     respond_to do |format|
+      #format.json { render :text => @pointers.select(:latitude,
+      #                                               :longitude,
+      #                                               :description,
+      #                                               :full_desc).to_json, :layout => false }
       format.json { render :text => @pointers.to_json, :layout => false }
       format.html
       format.mobile { render :text => @pointers.to_json, :layout => false }

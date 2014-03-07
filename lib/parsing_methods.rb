@@ -33,7 +33,7 @@ require 'open-uri'
             lat_lon = coord.first.split(",")
             latitude = lat_lon.first
             longitude = lat_lon.last
-            short_desc = element.scan(%r{^.*?\.}).to_s
+            short_desc = element.scan(%r{^.*?\.}).first.strip
             #puts element
             #puts "====="
             #puts short_desc

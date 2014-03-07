@@ -6,22 +6,24 @@ class Pointer < ActiveRecord::Base
   has_many :desires
 
   validates :latitude, :presence => true
-  validate :double_coordinates
+  #validate :double_coordinates, :on => :create
+
+  validates :latitude, :presence => true, :uniqueness => {:scope => :longitude}
 
   #================== Validations =====================
-  def double_coordinates
-    #errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{latitude.round(4)} AND longitude LIKE #{longitude.round(4)}").blank?
-    a = latitude.round(4)
-    b = longitude.round(4)
-    db_type = ActiveRecord::Base.connection.adapter_name
-
-    if db_type.index('PostgreSQL') == 0
-      errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude = #{a} AND longitude = #{b}").blank?
-    elsif db_type.index('Mysql') == 0
-      errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{a} AND longitude LIKE #{b}").blank?
-    end
-
-  end
+  #def double_coordinates
+  #  #errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE #{latitude.round(4)} AND longitude LIKE #{longitude.round(4)}").blank?
+  #  a = latitude.round(4)
+  #  b = longitude.round(4)
+  #  db_type = ActiveRecord::Base.connection.adapter_name
+  #
+  #  if db_type.index('PostgreSQL') == 0
+  #    errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude = #{a} AND longitude = #{b}").blank?
+  #  elsif db_type.index('Mysql') == 0
+  #    errors.add(:latitude, "double") unless Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude LIKE '#{a}' AND longitude LIKE '#{b}'").blank?
+  #  end
+  #
+  #end
 
   #====================================================
 

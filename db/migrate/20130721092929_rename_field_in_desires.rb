@@ -4,5 +4,6 @@ class RenameFieldInDesires < ActiveRecord::Migration
   end
 
   def down
+    rename_column :desires, :stat, :status
   end
 end
