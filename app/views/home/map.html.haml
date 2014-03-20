@@ -5,6 +5,8 @@
         %a{"data-toggle" => "tab", :href => "#tab1"} Description
       %li
         %a{"data-toggle" => "tab", :href => "#tab2"} Search
+      %li
+        %a{"data-toggle" => "tab", :href => "#tab3"} Directions
     .hide-arrow{:onclick => "hide_panel();"}
       %i.icon-chevron-right
     .tab-content
@@ -24,9 +26,20 @@
           .results
             Total points:
             = @size
+      #tab3.tab-pane
+        #directions-info
+          .control-group
+            %label.control-label.pointer-label{for:"input-from"}
+              %i.icon-map-marker
+            .controls
+              %input{type:"text", id:"input-from",placeholder:"From"}
+          .control-group
+            %label.control-label.pointer-label{for:"input-to"}
+              %i.icon-map-marker
+            .controls
+              %input{type:"text", id:"input-to",placeholder:"To"}
 
-  %input{:id => "coord_from", :value => "", :style => "display: none;"}
-  %input{:id => "coord_to", :value => "", :style => "display: none;"}
+        #directions-panel
 
   .map_section
     - if defined? zoom

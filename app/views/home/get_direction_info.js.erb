@@ -1,0 +1,22 @@
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var from = [<%= @from.split(",")[0].to_f %>, <%= @from.split(",")[1].to_f %>];
+var to = [<%= @to.split(",")[0].to_f %>, <%= @to.split(",")[1].to_f %>];
+
+directionsDisplay = new google.maps.DirectionsRenderer();
+Gmaps.map.replaceMarkers({});
+directionsDisplay.setMap(Gmaps.map.map);
+directionsDisplay.setPanel(document.getElementById('directions-panel'));
+
+var start = new google.maps.LatLng(from[0], from[1]);
+var end = new google.maps.LatLng(to[0], to[1]);
+var request = {
+    origin: start,
+    destination: end,
+    travelMode: google.maps.TravelMode.DRIVING
+};
+directionsService.route(request, function (result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(result);
+    }
+});

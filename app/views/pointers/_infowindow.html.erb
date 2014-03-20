@@ -20,13 +20,13 @@
     <hr>
 <%- end %>
 
-<a id='f_from_<%= point.id %>' data-remote='true' href='#' onclick="build_from('<%= point.latitude %>, <%= point.longitude %>')">
+<a id='f_from_<%= point.id %>' data-remote='true' href='?from' onclick="build_from('<%= point.latitude %>, <%= point.longitude %>')">
   <i class=' icon-map-marker'>
     Directions from here
   </i>
 </a>
 <br>
-<a id='f_to_<%= point.id %>' data-remote='true' href='#' onclick="build_to('<%= point.latitude %>, <%= point.longitude %>')">
+<a id='f_to_<%= point.id %>' data-remote='true' href='?to' onclick="build_to('<%= point.latitude %>, <%= point.longitude %>')">
   <i class=' icon-map-marker'>
     Directions to here
   </i>

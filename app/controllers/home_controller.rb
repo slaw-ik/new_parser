@@ -12,7 +12,9 @@ class HomeController < ApplicationController
     stat = params[:stat]
     my = params[:my] == '1'
 
-    unless params[:q].blank?
+    if params[:q].blank?
+      pointers = Pointer.select_pointers_by_user(user_id, my, stat)
+    else
       q = params[:q]
 
       pointers = Pointer.where { full_desc =~ "%#{q}%" }
@@ -23,8 +25,6 @@ class HomeController < ApplicationController
       #                              ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
       #                              where pointers.full_desc LIKE '%#{q}%'")
       @q = q
-    else
-      pointers = Pointer.select_pointers_by_user(user_id, my, stat)
     end
 
     @size = pointers.size
@@ -33,7 +33,11 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html { @json = build_map(pointers) }
       format.mobile
-      format.js { @json = build_map(pointers) }
+      format.js do
+        unless params.has_key?(:from) || params.has_key?(:to)
+          @json = build_map(pointers)
+        end
+      end
     end
   end
 
@@ -50,7 +54,10 @@ class HomeController < ApplicationController
   def search
     user_id = current_user.blank? ? 0 : current_user.id
 
-    unless params[:q].blank?
+    if params[:q].blank?
+      @q = ""
+      pointers = Pointer.all
+    else
       q = params[:q]
 
       unless params.has_key?(:slider) && params[:slider] == "slider"
@@ -66,9 +73,6 @@ class HomeController < ApplicationController
       #                              ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
       #                              where pointers.full_desc LIKE '%#{q}%'")
       @q = q
-    else
-      @q = ""
-      pointers = Pointer.all
     end
 
     @size = pointers.size
@@ -85,16 +89,16 @@ class HomeController < ApplicationController
   end
 
   def get_direction_info
-    from = params[:from]
-    to = params[:to]
+    @from = params[:from]
+    @to = params[:to]
 
-    @result = Gmaps4rails.destination({"from" => from,
-                                       "to" => to},
-                                      {"language" => "ru",
-                                       "mode" => "DRIVING",
-                                       "avoid" => ["tolls", "highways"],
-                                       "language" => "ru"},
-                                      "pretty")
+    #@result = Gmaps4rails.destination({"from" => from,
+    #                                   "to" => to},
+    #                                  {"language" => "ru",
+    #                                   "mode" => "DRIVING",
+    #                                   "avoid" => ["tolls", "highways"],
+    #                                   "language" => "ru"},
+    #                                  "pretty")
 
     #=========================Result Sample=====================================
     #[{"duration"=>{"text"=>"19 mins",

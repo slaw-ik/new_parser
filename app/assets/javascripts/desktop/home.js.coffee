@@ -6,8 +6,13 @@
   if $(".tabbable").hasClass('showed')
     $(".tabbable").animate({"left": "+=315px"}, "slow").removeClass("showed")
 
-@show_panel = () ->
-  active_tab = $(this).hasClass('active')
+@show_panel = (identifier = null) ->
+
+  if typeof identifier == "number"
+    $('.tabbable li a').eq(identifier).tab('show')
+  else
+    if typeof identifier == "object" && identifier != null
+      active_tab = $(identifier).hasClass('active')
 
   unless $(".tabbable").hasClass('showed')
     $(".tabbable").animate({"left": "-=315px"}, "slow").addClass("showed")
@@ -15,17 +20,30 @@
     hide_panel() if active_tab
 
 @build_from = (coord) ->
-  $('#coord_from').val(coord)
-  build($('#coord_from').val(), $('#coord_to').val())
+  $('#input-from').val(coord)
+  show_panel(2)
+  build($('#input-from').val(), $('#input-to').val())
 
 @build_to = (coord) ->
-  $('#coord_to').val(coord)
-  build($('#coord_from').val(), $('#coord_to').val())
+  $('#input-to').val(coord)
+  show_panel(2)
+  build($('#input-from').val(), $('#input-to').val())
 
 build = (from = null, to = null) ->
+  Gmaps.map.visibleInfoWindow.close()
   if from && to
     $.get('get_direction_info?from=' + from + '&to=' + to, (data) ->
-      modal.open({content: data}))
+#      modal.open({content: data})
+    )
+
+
+@clear_directions_data = ->
+  directionsDisplay.setMap(null) if (typeof directionsDisplay != 'undefined')
+  $('#input-from').val("")
+  $('#input-to').val("")
+  $('#directions-panel').html("")
+  hide_panel()
+  $('.tabbable li a').eq(0).tab('show')
 
 $ ->
   $body = $("body")
@@ -37,7 +55,7 @@ $ ->
       $body.removeClass("loading")
 
   $(".tabbable li").click ->
-    show_panel()
+    show_panel(this)
 
   $('#header-search-form i.icon-remove').click ->
     $('#header-search-form .input-medium').val('')

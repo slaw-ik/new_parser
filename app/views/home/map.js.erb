@@ -1,5 +1,7 @@
 var my_json = <%= raw @json %>;
 
+clear_directions_data();
+
 Gmaps.map.replaceMarkers(my_json);
 
 $('.search_block .results').text(size);
