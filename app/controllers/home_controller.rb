@@ -36,6 +36,8 @@ class HomeController < ApplicationController
       format.js do
         unless params.has_key?(:from) || params.has_key?(:to)
           @json = build_map(pointers)
+        else
+          render nothing: true
         end
       end
     end

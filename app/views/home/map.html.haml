@@ -49,21 +49,34 @@
 
     - center_latitude = (defined? center_lat) ? center_lat : 48.471303
     - center_longitude = (defined? center_long) ? center_long : 22.882928
-    = gmaps({ "map_options" => {  "auto_adjust" => false,
-                                  "auto_zoom" => true,
-                                  "zoom" => @zoom.to_i,
-                                  "center_latitude" => center_latitude,
-                                  "center_longitude" => center_longitude,
-                                  "do_clustering" => true },
-              "markers" => {"data" => @json }})
+
+  %div{style:'width: 800px;'}
+    #map{style:'width: 800px; height: 400px;'}
 
 
-  -#.well{:style => "margin-top:20px;"}
-    .description
-      = @desc
-      -#Full description...
+    -# Deprecated Gmap4Rails
+    -#
+    -#= gmaps({ "map_options" => {  "auto_adjust" => false,
+    -#                              "auto_zoom" => true,
+    -#                              "zoom" => @zoom.to_i,
+    -#                              "center_latitude" => center_latitude,
+    -#                              "center_longitude" => center_longitude,
+    -#                              "do_clustering" => true },
+    -#          "markers" => {"data" => @json }})
 
-  -##vk_like
-  -#%script{:type => "text/javascript"}
-    VK.Widgets.Like("vk_like", {type: "full"});
+
+:javascript
+  window.markers = #{raw @json.to_json};
+  buildMapFromMarkers(window.markers);
+
+
+
+-#.well{:style => "margin-top:20px;"}
+  .description
+    = @desc
+    -#Full description...
+
+-##vk_like
+-#%script{:type => "text/javascript"}
+  VK.Widgets.Like("vk_like", {type: "full"});
 

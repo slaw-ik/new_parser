@@ -1,7 +1,7 @@
 class Pointer < ActiveRecord::Base
 
   attr_accessible :description, :full_desc, :gmaps, :latitude, :longitude, :rec_date
-  acts_as_gmappable :process_geocoding => false
+  #acts_as_gmappable :process_geocoding => false
 
   has_many :desires
 

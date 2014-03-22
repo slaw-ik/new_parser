@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require desktop/underscore
+//= require gmaps/google
 //= require_tree ./desktop
-//= require_tree ./gmaps4rails
-//= jquery.validate
+// require_tree ./gmaps4rails
+// jquery.validate
 //= bootstrap
 
 //= script

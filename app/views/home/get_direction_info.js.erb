@@ -4,8 +4,9 @@ var from = [<%= @from.split(",")[0].to_f %>, <%= @from.split(",")[1].to_f %>];
 var to = [<%= @to.split(",")[0].to_f %>, <%= @to.split(",")[1].to_f %>];
 
 directionsDisplay = new google.maps.DirectionsRenderer();
-Gmaps.map.replaceMarkers({});
-directionsDisplay.setMap(Gmaps.map.map);
+//Gmaps.map.replaceMarkers({});
+window.mapHandler.clusterer.clear();
+directionsDisplay.setMap(window.mapHandler.getMap());
 directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
 var start = new google.maps.LatLng(from[0], from[1]);

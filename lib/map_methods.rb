@@ -1,7 +1,13 @@
 module MapMethods
 
   def build_map(collection, options = {})
-    collection.to_gmaps4rails do |point, marker|
+    #collection.to_gmaps4rails do |point, marker|
+    Gmaps4rails.build_markers(collection) do |point, marker|
+
+      marker.lat point.latitude
+      marker.lng point.longitude
+      #marker.infowindow "Helllllllo"
+
       marker.infowindow render_to_string(:partial => "pointers/infowindow", :locals => {:point => point})
       stat_dir = dir_name(point, options[:stat])
       width = options[:width].blank? ? 32 : options[:width]

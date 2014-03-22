@@ -1,8 +1,9 @@
-var my_json = <%= raw @json %>;
+var my_json = <%= raw @json.to_json %>;
+buildMapFromMarkers(my_json);
 
 clear_directions_data();
 
-Gmaps.map.replaceMarkers(my_json);
+//Gmaps.map.replaceMarkers(my_json);
 
 $('.search_block .results').text(size);
 $('.search_block .search_form input.search-query').val(query);

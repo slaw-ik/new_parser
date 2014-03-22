@@ -2,6 +2,20 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+@buildMapFromMarkers = (json_markers) ->
+  window.mapHandler = Gmaps.build("Google")
+  window.mapHandler.buildMap
+    provider: {}
+    internal:
+      id: "map"
+  , ->
+    markers = window.mapHandler.addMarkers(json_markers)
+    window.mapHandler.bounds.extendWith markers
+    window.mapHandler.fitMapToBounds()
+    return
+
+
+
 @hide_panel = () ->
   if $(".tabbable").hasClass('showed')
     $(".tabbable").animate({"left": "+=315px"}, "slow").removeClass("showed")
@@ -30,7 +44,8 @@
   build($('#input-from').val(), $('#input-to').val())
 
 build = (from = null, to = null) ->
-  Gmaps.map.visibleInfoWindow.close()
+#  Gmaps.map.visibleInfoWindow.close()
+  Gmaps.Google.Builders.Marker.CURRENT_INFOWINDOW.close()
   if from && to
     $.get('get_direction_info?from=' + from + '&to=' + to, (data) ->
 #      modal.open({content: data})
