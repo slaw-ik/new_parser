@@ -16,9 +16,7 @@ class HomeController < ApplicationController
       pointers = Pointer.select_pointers_by_user(user_id, my, stat)
     else
       q = params[:q]
-
       pointers = Pointer.where { full_desc =~ "%#{q}%" }
-
       #pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
       #                              FROM pointers
       #                              LEFT OUTER JOIN desires
@@ -31,7 +29,9 @@ class HomeController < ApplicationController
     @zoom = params[:zoom] ? params[:zoom] : 9
 
     respond_to do |format|
-      format.html { @json = build_map(pointers) }
+      format.html do
+        @json = build_map(pointers)
+      end
       format.mobile
       format.js do
         unless params.has_key?(:from) || params.has_key?(:to)
@@ -49,7 +49,6 @@ class HomeController < ApplicationController
       format.js { render :layout => false }
     end
   end
-
 
   def search
     user_id = current_user.blank? ? 0 : current_user.id
@@ -82,7 +81,6 @@ class HomeController < ApplicationController
       format.js { render :layout => false }
     end
   end
-
 
   def get_direction
 

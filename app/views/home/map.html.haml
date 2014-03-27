@@ -11,19 +11,20 @@
       %i.icon-chevron-right
     .tab-content
       #tab1.tab-pane.active
-        %h5
+        %h5.tab_header
           Full description
         .well.description
           = @desc
       #tab2.tab-pane
-        .search_block
-          .search_form
-            = form_tag("/search", :method => "get", :class => "form-search") do
-              -#= label_tag(:q, "Search for:")
+        .row-fluid.search_form
+          = form_tag("/search", :method => "get", :class => "form-search") do
+            .span8
               = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
               = hidden_field_tag(:slider, "slider")
+            .span3
               = submit_tag("Search", :class => "btn")
-          .results
+        .row-fluid
+          .sapn10.results
             Total points:
             = @size
       #tab3.tab-pane
@@ -38,7 +39,6 @@
               %i.icon-map-marker
             .controls
               %input{type:"text", id:"input-to",placeholder:"To"}
-
         #directions-panel
 
   .map_section
@@ -56,12 +56,9 @@
                                   "center_longitude" => center_longitude,
                                   "do_clustering" => true },
               "markers" => {"data" => @json }})
-
-
-  -#.well{:style => "margin-top:20px;"}
-    .description
-      = @desc
-      -#Full description...
+= if @q
+  :javascript
+    show_panel(1);
 
   -##vk_like
   -#%script{:type => "text/javascript"}
