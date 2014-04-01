@@ -48,11 +48,9 @@
   build($('#input-from').val(), $('#input-to').val())
 
 build = (from = null, to = null) ->
-#  Gmaps.map.visibleInfoWindow.close()
   Gmaps.Google.Builders.Marker.CURRENT_INFOWINDOW.close()
   if from && to
-    $.get('get_direction_info?from=' + from + '&to=' + to, (data) ->
-#      modal.open({content: data})
+    $.get("#{window.location.protocol}//#{window.location.host}/get_direction_info?from=#{from}&to=#{to}", (data) ->
     )
 
 
