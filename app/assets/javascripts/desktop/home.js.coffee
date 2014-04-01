@@ -5,7 +5,11 @@
 @buildMapFromMarkers = (json_markers) ->
   window.mapHandler = Gmaps.build("Google")
   window.mapHandler.buildMap
-    provider: {}
+    provider: {
+#      zoom:      15,
+#      center:    new google.maps.LatLng(53.385873, -1.471471),
+#      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
     internal:
       id: "map"
   , ->

@@ -9,12 +9,12 @@
   vertical-align: inherit;
 }
 
-.search_block {
-  .search_form {
-    margin: 10px;
-  }
-  .results {
-  }
+.search_form {
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+.results {
 }
 
 .map_section {
@@ -118,6 +118,10 @@
     height: 100%;
     .tab-pane.active {
       height: 100%;
+      .tab_header{
+        margin-top: 0;
+        padding-top: 10px;
+      }
       #directions-info {
         padding-top: 10px;
         .control-group {

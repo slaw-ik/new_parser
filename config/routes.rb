@@ -17,7 +17,6 @@ GpsParser::Application.routes.draw do
   match '/parse' => 'pointers#parse', :as => 'parse'
   match 'home/full_desc' => 'home#full_desc'
   match '/my_places' => 'home#my_places'
-  match '/get_direction' => 'home#get_direction'
   match '/get_direction_info' => 'home#get_direction_info'
   match 'show_pointer_on_map/:id' => 'pointers#show_pointer_on_map', :as => 'show_pointer_on_map'
   match 'create_visit/:id' => 'desires#create_visit'

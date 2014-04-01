@@ -11,19 +11,20 @@
       %i.icon-chevron-right
     .tab-content
       #tab1.tab-pane.active
-        %h5
+        %h5.tab_header
           Full description
         .well.description
           = @desc
       #tab2.tab-pane
-        .search_block
-          .search_form
-            = form_tag("/search", :method => "get", :class => "form-search") do
-              -#= label_tag(:q, "Search for:")
+        .row-fluid.search_form
+          = form_tag("/search", :method => "get", :class => "form-search") do
+            .span8
               = text_field_tag(:q, params[:q], :class => "input-medium search-query", :placeholder => "Search")
               = hidden_field_tag(:slider, "slider")
+            .span3
               = submit_tag("Search", :class => "btn")
-          .results
+        .row-fluid
+          .sapn10.results
             Total points:
             = @size
       #tab3.tab-pane
@@ -38,7 +39,6 @@
               %i.icon-map-marker
             .controls
               %input{type:"text", id:"input-to",placeholder:"To"}
-
         #directions-panel
 
   .map_section
@@ -50,19 +50,22 @@
     - center_latitude = (defined? center_lat) ? center_lat : 48.471303
     - center_longitude = (defined? center_long) ? center_long : 22.882928
 
-  %div{style:'width: 800px;'}
-    #map{style:'width: 800px; height: 400px;'}
+    #map
+
+= if @q
+  :javascript
+    show_panel(1);
 
 
-    -# Deprecated Gmap4Rails
-    -#
-    -#= gmaps({ "map_options" => {  "auto_adjust" => false,
-    -#                              "auto_zoom" => true,
-    -#                              "zoom" => @zoom.to_i,
-    -#                              "center_latitude" => center_latitude,
-    -#                              "center_longitude" => center_longitude,
-    -#                              "do_clustering" => true },
-    -#          "markers" => {"data" => @json }})
+-# Deprecated Gmap4Rails
+-#
+-#= gmaps({ "map_options" => {  "auto_adjust" => false,
+-#                              "auto_zoom" => true,
+-#                              "zoom" => @zoom.to_i,
+-#                              "center_latitude" => center_latitude,
+-#                              "center_longitude" => center_longitude,
+-#                              "do_clustering" => true },
+-#          "markers" => {"data" => @json }})
 
 
 :javascript
