@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140307184855) do
+ActiveRecord::Schema.define(:version => 20140425230745) do
 
   create_table "desires", :force => true do |t|
     t.integer  "pointer_id"
@@ -27,10 +27,13 @@ ActiveRecord::Schema.define(:version => 20140307184855) do
     t.string   "description"
     t.text     "full_desc"
     t.boolean  "gmaps"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.date     "rec_date"
+    t.integer  "rating",      :default => 0
   end
+
+  add_index "pointers", ["latitude", "longitude"], :name => "index_pointers_on_latitude_and_longitude", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

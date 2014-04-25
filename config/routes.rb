@@ -24,6 +24,8 @@ GpsParser::Application.routes.draw do
   match 'set_visited/:id' => 'desires#set_visited'
   match 'options' => 'home#options'
 
+  post 'import_ratings' => 'pointers#import_ratings', defaults: {format: :json}
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
