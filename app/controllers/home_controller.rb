@@ -5,6 +5,7 @@ class HomeController < ApplicationController
 
   def index
     @last_points = Pointer.limit(10).order("rec_date DESC, id ASC")
+    @top_points = Pointer.limit(10).order("rating DESC, rec_date DESC, id ASC")
   end
 
   def map

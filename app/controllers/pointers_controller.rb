@@ -1,7 +1,16 @@
 class PointersController < ApplicationController
+
+  skip_before_filter :verify_authenticity_token, :only => [:import_ratings]
+
   def index
     @pointers = Pointer.search_in_radius(:radius => params[:radius], :lng => params[:lng], :lat => params[:lat])
-    pointers_for_json = @pointers.map{|obj| obj.attributes.except("rec_date", "description", "id", "gmaps", "created_at", "updated_at")}
+
+    pointers_for_json = if params['current_count'].to_i != @pointers.size
+                          @pointers.map { |obj| obj.attributes.except("rec_date", "description", "id", "gmaps", "created_at", "updated_at") }
+                        else
+                          []
+                        end
+
     respond_to do |format|
       format.json { render :text => pointers_for_json.to_json, :layout => false }
       format.html
@@ -66,11 +75,35 @@ class PointersController < ApplicationController
   def destroy
   end
 
-
-
   def parse
     ParsingMethods::parse_coords
     redirect_to root_path
+  end
+
+  def import_ratings
+    puts "========================================"
+    puts params
+    puts "========================================"
+    my_status = 200
+
+    unless params["_json"].blank?
+      begin
+        Pointer.transaction do
+          params["_json"].each do |data|
+            where_params = data["loc_position"].split(' ')
+            pointer = Pointer.where("latitude LIKE ? AND longitude LIKE ?", where_params[0], where_params[1]).first
+            by_rating = data['resetable_rating'].to_i
+            pointer.increment!(:rating, by = by_rating)
+          end
+        end
+      rescue ActiveRecord::Rollback
+        my_status = 501
+      end
+    end
+
+    respond_to do |format|
+      format.json { render :nothing => true, status: my_status }
+    end
   end
 
 end
