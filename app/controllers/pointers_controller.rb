@@ -91,7 +91,9 @@ class PointersController < ApplicationController
         Pointer.transaction do
           params["_json"].each do |data|
             where_params = data["loc_position"].split(' ')
-            pointer = Pointer.where("latitude LIKE ? AND longitude LIKE ?", where_params[0], where_params[1]).first
+            # pointer = Pointer.where("latitude LIKE ? AND longitude LIKE ?", where_params[0], where_params[1]).first
+            # Fix for PostgreSQL
+            pointer = Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude = #{where_params[0]} AND longitude = #{where_params[1]}").first
             by_rating = data['resetable_rating'].to_i
             pointer.increment!(:rating, by = by_rating)
           end
