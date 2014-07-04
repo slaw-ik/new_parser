@@ -95,7 +95,8 @@ class PointersController < ApplicationController
             # Fix for PostgreSQL
             pointer = Pointer.find_by_sql("SELECT * FROM pointers WHERE latitude = #{where_params[0]} AND longitude = #{where_params[1]}").first
             by_rating = data['resetable_rating'].to_i
-            pointer.increment!(:rating, by = by_rating)
+            # pointer.increment!(:rating, by = by_rating)
+            pointer.update_attribute(:rating, pointer.rating + by_rating)
           end
         end
       rescue ActiveRecord::Rollback
