@@ -1,49 +1,40 @@
-.list-widget
-  .list-head
-    %h3
-      10 Last added places
-  %ul
-    - @last_points.each do |point|
+.row
+  .list-widget
+    .list-head
+      %h3
+        10 Last added places
+    %ul
+      - @last_points.each do |point|
+        %li
+          %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
+          %div
+            %a{:href => "#{show_pointer_on_map_path(point.id)}"}
+              = point.description
+
       %li
-        %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
-        %div
-          %a{:href => "#{show_pointer_on_map_path(point.id)}"}
-            = point.description
+        %a.list-view{:href => "/list"} View all
 
-    %li
-      %a.list-view{:href => "/list"} View all
+  .list-widget
+    .list-head
+      %h3
+        10 Most popular places
+    %ul
+      - @top_points.each do |point|
+        %li
+          %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
+          %div
+            %a{:href => "#{show_pointer_on_map_path(point.id)}"}
+              = point.description
 
-.list-widget
-  .list-head
-    %h3
-      10 Most popular places
-  %ul
-    - @top_points.each do |point|
       %li
-        %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
-        %div
-          %a{:href => "#{show_pointer_on_map_path(point.id)}"}
-            = point.description
+        %a.list-view{:href => "/list"} View all
 
-    %li
-      %a.list-view{:href => "/list"} View all
-
--#.list-widget
-  .list-head
-    %h3
-      %a{:href => "/honzasladek/responsive-web-design"} Responsive Web Design
-  -#%ul
-    %li
-      %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=www.lukew.com');"}
-      %div
-        %a{:href => "/honzasladek/responsive-web-design"} LukeW | Data Monday: Almost One Billion...
-    %li
-      %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=analytics.blogspot.cz');"}
-      %div
-        %a{:href => "/honzasladek/responsive-web-design"} Mobile Websites vs Responsive Design: What’s the right solution for your business? - Analytics Blog
-    %li
-      %i.fav{:style => "background-image:url('https://www.google.com/s2/u/0/favicons?domain=css-tricks.com');"}
-      %div
-        %a{:href => "/honzasladek/responsive-web-design"} Opt-Out Responsive Design? | CSS-Tricks
-    %li
-      %a.list-view{:href => "/honzasladek/responsive-web-design"} View all 58 clips 
+.row
+  #footer{:style => "text-align: center;"}
+    %p
+      All data are taken from
+      %a{:href => "http://poi.uzhgorod.ua/"}
+        poi.uzhgorod.ua
+    %p
+      © 2014
+      %a{:href => 'https://github.com/slaw-ik'} Miroslav Nastenko
