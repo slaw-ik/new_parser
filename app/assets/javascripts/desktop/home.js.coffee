@@ -3,21 +3,23 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 @buildMapFromMarkers = (json_markers) ->
+  provider = {}
+  if json_markers.length == 1
+    provider.zoom = 15
+    provider.center = new google.maps.LatLng(json_markers[0].lat, json_markers[0].lng)
+    provider.mapTypeId = google.maps.MapTypeId.HYBRID
+
   window.mapHandler = Gmaps.build("Google")
   window.mapHandler.buildMap
-    provider: {
-#      zoom:      15,
-#      center:    new google.maps.LatLng(53.385873, -1.471471),
-#      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    provider: provider
     internal:
       id: "map"
   , ->
     markers = window.mapHandler.addMarkers(json_markers)
     window.mapHandler.bounds.extendWith markers
-    window.mapHandler.fitMapToBounds()
+    if json_markers.length != 1
+      window.mapHandler.fitMapToBounds()
     return
-
 
 
 @hide_panel = () ->
@@ -25,7 +27,6 @@
     $(".tabbable").animate({"left": "+=315px"}, "slow").removeClass("showed")
 
 @show_panel = (identifier = null) ->
-
   if typeof identifier == "number"
     $('.tabbable li a').eq(identifier).tab('show')
   else
