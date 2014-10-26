@@ -39,14 +39,10 @@ module ParsingMethods
             lat_lon = coord.first.split(",")
             latitude = lat_lon.first
             longitude = lat_lon.last
-            # short_desc = full_desc.scan(%r{^.*?\.}).first.strip
-            # short_desc = full_desc.scan(%r{.*?(?<=\u0441\u0432\.).*?\.(?!\d/)}).first.strip
-            # short_desc = full_desc.match(%r{^.*?(((?:\s[\u0430-\u044F\u0410-\u042F]{0,3}\.(.*?))*)|((?:\d\.(.*?))))*(\.|$)})[0]
-            short_desc = full_desc.match(%r{^.*?(?:[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\d\.(.*?))*(\.|$)})[0]
+            short_desc = point.full_desc.match(%r{^.*?(?:^[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\s[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\d\.(.*?))*(\.|$)})[0].gsub('"', "'")
             #puts element
             #puts "====="
             #puts short_desc
-            short_desc.gsub!('"', "'")
             begin
               Pointer.create(:latitude => latitude.to_f.round(4),
                              :longitude => longitude.to_f.round(4),
