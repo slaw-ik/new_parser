@@ -21,8 +21,7 @@ module ParsingMethods
 
     doc.css("p").each do |pp|
       if pp.text.mb_chars.include?("done")
-        pt = pp.text.gsub!("done ", ">><<")
-        pt.gsub!(/\n/, '')
+        pt = pp.text.gsub("done ", ">><<").gsub(/\n/, ' ').gsub(/\s+/, ' ')
         pt.scan(%r{<<.*?>>}).each_with_index do |element, index|
           coord = element.scan(%r{\s?\d{2}.\d{4,7}\s*,\s*\d{2}.\d{4,7}\s?})
           #@arr << element
@@ -39,7 +38,7 @@ module ParsingMethods
             lat_lon = coord.first.split(",")
             latitude = lat_lon.first
             longitude = lat_lon.last
-            short_desc = point.full_desc.match(%r{^.*?(?:^[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\s[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\d\.(.*?))*(\.|$)})[0].gsub('"', "'")
+            short_desc = full_desc.match(%r{^.*?(?:^[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\s[\u0430-\u044F\u0410-\u042F]{1,3}\.(.*?))*(?:\d\.(.*?))*(\.|$)})[0].gsub('"', "'")
             #puts element
             #puts "====="
             #puts short_desc
