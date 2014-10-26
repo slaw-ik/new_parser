@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140425230745) do
+ActiveRecord::Schema.define(:version => 20141026130335) do
 
   create_table "desires", :force => true do |t|
     t.integer  "pointer_id"
