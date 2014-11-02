@@ -69,6 +69,9 @@
 
 
 :javascript
+  if (document.location.pathname.indexOf("/show_pointer_on_map") == 0){
+  window.document.title = '#{raw @desc}';
+  };
   window.markers = #{raw @json.to_json};
   buildMapFromMarkers(window.markers);
 

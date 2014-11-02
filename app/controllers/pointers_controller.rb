@@ -56,7 +56,7 @@ class PointersController < ApplicationController
                                     ON pointers.id = desires.pointer_id AND desires.user_id = #{user_id}
                                     where pointers.id = #{id}")
 
-      @desc = pointers.first.full_desc
+      @desc = pointers.first.description
       @json = build_map(pointers)
 
       @size = 1
