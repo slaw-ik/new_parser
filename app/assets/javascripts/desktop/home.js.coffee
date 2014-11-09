@@ -101,7 +101,31 @@ $ ->
     if $('.wrapper').data('map')
       event.preventDefault()
       url = $(this).attr('href')
+      history.pushState({}, '', url);
+
+      console.log window.cashedResponse
+
+      if window.cashedResponse && url.match(/^.*\/map$/)
+        eval(window.cashedResponse)
+      else
+        request = $.ajax(
+          url: url
+          dataType: "script"
+        )
+        request.done (msg) ->
+          console.log "msg => #{msg}"
+          return
+
+        request.fail (jqXHR, textStatus) ->
+          if textStatus == 'parsererror'
+            window.cashedResponse = jqXHR.responseText
+#            console.log window.cashedResponse
+          return
+
+
+    # Revert to a previously saved state
+    window.addEventListener 'popstate', (event) ->
       $.ajax(
-        url: url
+        url: document.location
         dataType: "script"
       )
