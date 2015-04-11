@@ -42,8 +42,8 @@ GpsParser::Application.configure do
       :address              => "smtp.gmail.com",
       :port                 => 587,
       :domain               => 'baci.lindsaar.net',
-      :user_name            => 'slawikdft@gmail.com',
-      :password             => 'Myrkin240985',
+      :user_name            => 'poi.herokuapp@gmail.com',
+      :password             => 'Myrkin1985',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
 
