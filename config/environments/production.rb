@@ -71,9 +71,9 @@ GpsParser::Application.configure do
   config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
-      :domain               => 'poi.herokuapp.com',
-      :user_name            => 'poi.herokuapp@gmail.com',
-      :password             => 'Myrkin1985',
+      :domain               => 'gmail.com',
+      :user_name            => ENV['EMAIL'],
+      :password             => ENV['EMAIL_PASS'],
       :authentication       => 'plain',
       :enable_starttls_auto => true
   }
