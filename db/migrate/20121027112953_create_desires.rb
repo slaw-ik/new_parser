@@ -1,4 +1,4 @@
-class CreateDesires < ActiveRecord::Migration
+class CreateDesires < ActiveRecord::Migration[4.2]
   def change
     create_table :desires do |t|
       t.integer :pointer_id

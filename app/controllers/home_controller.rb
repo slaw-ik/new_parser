@@ -1,7 +1,8 @@
-class HomeController < ApplicationController
+include MapMethods
 
+class HomeController < ApplicationController
   #@@resc_arr =[]
-  #before_filter proc { @@resc_arr =[] }, :except => [:all_list]
+  #before_action proc { @@resc_arr =[] }, :except => [:all_list]
 
   def index
     @last_points = Pointer.limit(10).order("rec_date DESC, id ASC")
@@ -17,7 +18,7 @@ class HomeController < ApplicationController
       pointers = Pointer.select_pointers_by_user(user_id, my, stat)
     else
       q = params[:q]
-      pointers = Pointer.where { full_desc =~ "%#{q}%" }
+      pointers = Pointer.where {full_desc =~ "%#{q}%"}
       #pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
       #                              FROM pointers
       #                              LEFT OUTER JOIN desires
@@ -49,7 +50,7 @@ class HomeController < ApplicationController
     @desc = (Pointer.find(id).full_desc).delete("\r")
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js {render :layout => false}
     end
   end
 
@@ -67,7 +68,7 @@ class HomeController < ApplicationController
         return
       end
 
-      pointers = Pointer.where { full_desc =~ "%#{q}%" }
+      pointers = Pointer.where {full_desc =~ "%#{q}%"}
 
       #pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
       #                              FROM pointers
@@ -81,7 +82,7 @@ class HomeController < ApplicationController
     @json = build_map(pointers)
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js {render :layout => false}
     end
   end
 

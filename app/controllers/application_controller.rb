@@ -1,11 +1,8 @@
-include MapMethods
-include ParsingMethods
-
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_current_user, :prepare_for_mobile
+  before_action :set_current_user, :prepare_for_mobile
 
   def set_current_user
     User.current_user = current_user

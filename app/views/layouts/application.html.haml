@@ -30,7 +30,7 @@
             Places of Transcarpathia
           .nav-collapse
             %ul.nav
-              %li{:class => controller.action_name.in?("map", "show_pointer_on_map") ? "active" : "" }
+              %li{:class => controller.action_name.in?(["map", "show_pointer_on_map"]) ? "active" : "" }
                 = link_to "Map", map_path, :class => 'ajax_map'
               %li{:class => controller.action_name == "all_list" ? "active" : ""}
                 = link_to "List", list_path

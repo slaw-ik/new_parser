@@ -1,4 +1,4 @@
-class UpdateDescriptionInPointer < ActiveRecord::Migration
+class UpdateDescriptionInPointer < ActiveRecord::Migration[4.2]
   def up
     Pointer.all.each do |point|
       full_desc = point.full_desc.gsub(/\n/, ' ').gsub(/\s+/, ' ').match(%r{(\s{0,5}\(?\d{0,2}\)?\s{0,5}-\s{0,5})(.*)})[2]

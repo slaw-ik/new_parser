@@ -1,4 +1,4 @@
-class CreatePointers < ActiveRecord::Migration
+class CreatePointers < ActiveRecord::Migration[4.2]
   def change
     create_table :pointers do |t|
       t.float :latitude

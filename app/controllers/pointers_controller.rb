@@ -1,6 +1,6 @@
 class PointersController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token, :only => [:import_ratings]
+  skip_before_action :verify_authenticity_token, :only => [:import_ratings]
 
   def index
     @pointers = Pointer.search_in_radius(:radius => params[:radius], :lng => params[:lng], :lat => params[:lat])

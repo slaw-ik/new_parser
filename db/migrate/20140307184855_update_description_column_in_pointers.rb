@@ -1,4 +1,4 @@
-class UpdateDescriptionColumnInPointers < ActiveRecord::Migration
+class UpdateDescriptionColumnInPointers < ActiveRecord::Migration[4.2]
   def up
     Pointer.all.each do |point|
       point.description = point.description.gsub("['", "").gsub("']", "").gsub("[", "").gsub("]", "")
