@@ -20,4 +20,5 @@ doc/
 Gemfile.lock
 log/*.*
 .sass-cache
-todo_files/
+todo_files//public/packs
+/node_modules

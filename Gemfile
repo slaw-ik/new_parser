@@ -28,9 +28,6 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier'
-
-  gem 'sass-rails'
-  gem 'coffee-rails'
 end
 
 group :development, :test do
@@ -66,3 +63,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'listen'
+
+gem 'webpacker', '~> 2.0'
