@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   def index
     @last_points = Pointer.limit(10).order("rec_date DESC, id ASC")
     @top_points = Pointer.limit(10).order("rating DESC, rec_date DESC, id ASC")
+    gon.markers = Pointer.all.map { |p| { lat: p.latitude, lng: p.longitude, desc: p.description } }
   end
 
   def map
@@ -18,7 +19,7 @@ class HomeController < ApplicationController
       pointers = Pointer.select_pointers_by_user(user_id, my, stat)
     else
       q = params[:q]
-      pointers = Pointer.where {full_desc =~ "%#{q}%"}
+      pointers = Pointer.where { full_desc =~ "%#{q}%" }
       #pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
       #                              FROM pointers
       #                              LEFT OUTER JOIN desires
@@ -50,7 +51,7 @@ class HomeController < ApplicationController
     @desc = (Pointer.find(id).full_desc).delete("\r")
 
     respond_to do |format|
-      format.js {render :layout => false}
+      format.js { render :layout => false }
     end
   end
 
@@ -68,7 +69,7 @@ class HomeController < ApplicationController
         return
       end
 
-      pointers = Pointer.where {full_desc =~ "%#{q}%"}
+      pointers = Pointer.where { full_desc =~ "%#{q}%" }
 
       #pointers = Pointer.find_by_sql("SELECT pointers.id, pointers.latitude, pointers.longitude, pointers.description, pointers.full_desc, desires.stat
       #                              FROM pointers
@@ -82,7 +83,7 @@ class HomeController < ApplicationController
     @json = build_map(pointers)
 
     respond_to do |format|
-      format.js {render :layout => false}
+      format.js { render :layout => false }
     end
   end
 

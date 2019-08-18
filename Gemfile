@@ -12,9 +12,7 @@ gem 'gmaps4rails'
 gem 'nokogiri'
 
 gem "twitter-bootstrap-rails"
-#gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
-# gem 'squeel'
 gem 'thin'
 
 # Gems used only for assets and not required
@@ -24,7 +22,6 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier'
@@ -38,6 +35,8 @@ group :development, :test do
   gem 'meta_request'
 
   gem 'rspec-rails'
+
+  gem 'rubocop', '~> 0.39.0'
 end
 
 group :production do
@@ -47,21 +46,7 @@ end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
 gem 'listen'
 
 gem 'webpacker', '~> 2.0'
+gem 'gon', '~> 6.2'
