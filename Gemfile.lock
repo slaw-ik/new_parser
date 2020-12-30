@@ -86,11 +86,11 @@ GEM
       rack-contrib
       railties
     mime-types (1.25.1)
-    mini_portile (0.5.2)
+    mini_portile2 (2.4.0)
     multi_json (1.9.2)
     mysql2 (0.3.15)
-    nokogiri (1.6.1)
-      mini_portile (~> 0.5.0)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyamorous (0.6.4)
